@@ -1,11 +1,39 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="1.2.0.754">
-  <ExportedFolder Id="ceb736d2-120e-4062-8b0c-b79593ee0063" Name="01Hock Hunter" Enabled="false">
-    <Folders />
+<TriggernometryExport PluginVersion="2.0.8.1">
+  <ExportedFolder Id="ceb736d2-120e-4062-8b0c-b79593ee0063" Enabled="true" Name="01Hock Hunter">
+    <Folders>
+      <Folder Id="c41d9e97-695e-424b-9092-6b4f9cff94ce" Enabled="true" Name="双体备用">
+        <Triggers>
+          <Trigger Enabled="false" Id="04f76469-7648-4273-9f24-6ceb09e6e153" Name="实体备用" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;[^:]*):(?&lt;name&gt;[^:]*):" />
+          <Trigger Enabled="true" Id="52e59820-1a54-436e-851b-36c98a146607" Name="BOSSID Hunter副目标" RegularExpression="^.{14} ActionEffect 15:(?&lt;ID&gt;[^:]*):(?&lt;Name&gt;[^:]*):(?&lt;技能id&gt;[^:]+):[^:]*:(?&lt;TargetID&gt;[^:]*):(?&lt;TargetName&gt;[^:]*)" PeriodRefire="Deny" RefirePeriodExpression="30000">
+            <Actions>
+              <Action OrderNumber="1" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="BossID" ListVariableExpression="${TargetID}" />
+              <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="5000" />
+              <Action OrderNumber="3" ActionType="Trigger" TriggerOp="DisableTrigger" TriggerId="52e59820-1a54-436e-851b-36c98a146607" />
+            </Actions>
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+              <ConditionSingle Enabled="true" ExpressionL="${TargetName}" ExpressionTypeL="String" ExpressionR="${var:BossName}" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+              <ConditionSingle Enabled="true" ExpressionL="${lvar:BossID.size}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="StringEqualNocase" />
+              <ConditionSingle Enabled="true" ExpressionL="${lvar:BossID.[1]}" ExpressionTypeL="String" ExpressionR="${TargetID}" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+              <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${TargetID}" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="ab43baa3-377f-4406-8e83-c03293b1719d" Name="Skill Hunter" RegularExpression="^.{14} (?:\w+ )14:(?&lt;BossID&gt;[^:]*):(?&lt;BossName1&gt;[^:]*):(?&lt;SkillID&gt;[^:]*):(?&lt;SkillName&gt;[^:]*):" Sequential="True" Description="^.{15}\S+ 16:(?&lt;BossID&gt;[^:]*):(?&lt;BossName&gt;[^:]*):(?&lt;skillId&gt;[^:]+):(?&lt;skillName&gt;[^:]+):(?&lt;id&gt;[^:]{8}):(?&lt;Name&gt;(Psycho|Guo Psycho))">
+            <Actions>
+              <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="100" NamedCallbackName="command" NamedCallbackParam="/e Skill Hunter Catch Success  BossName &lt;${BossName1}&gt; Skill Name：&lt;${SkillName}&gt; Skill ID：&lt;${SkillID}&gt;" />
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${lvar:BossID[2]}" ExpressionTypeL="String" ExpressionR="${BossID}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Trigger>
+        </Triggers>
+      </Folder>
+    </Folders>
     <Triggers>
-      <Trigger Enabled="true" Name="特殊Buff Hunter" Id="badfdfa1-4d27-4a36-b02f-ae6b059ea2f5" RegularExpression="^.{14} StatusAdd 1A:(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):(?&lt;FromID&gt;.{8}):(?&lt;BossName&gt;[^:]*):(?&lt;TargetID&gt;.{8}):(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)">
+      <Trigger Enabled="true" Id="badfdfa1-4d27-4a36-b02f-ae6b059ea2f5" Name="特殊Buff Hunter" RegularExpression="^.{14} StatusAdd 1A:1(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):(?&lt;FromID&gt;.{8}):(?&lt;BossName&gt;[^:]*):(?&lt;TargetID&gt;.{8}):(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)">
         <Actions>
-          <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="200" NamedCallbackName="command" NamedCallbackParam="/e Buff Hunter Catch Success  BuffName &lt;${BuffName}&gt; Buff ID：&lt;${BuffID}&gt; Buff Time：&lt;${Bufftime}&gt; To:&lt;${BuffTarget}&gt; BuffType&lt;${BuffType}&gt; " />
+          <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="200" NamedCallbackName="command" NamedCallbackParam="/e Buff Hunter Catch Success  BuffName &lt;${BuffName}&gt; Buff ID：1&lt;${BuffID}&gt; Buff Time：&lt;${Bufftime}&gt; To:&lt;${BuffTarget}&gt; BuffType&lt;${BuffType}&gt; " />
         </Actions>
         <Condition Enabled="true" Grouping="And">
           <ConditionSingle Enabled="true" ExpressionL="${var:HunterTime}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
@@ -17,20 +45,25 @@
           <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="B7D" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
           <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="968" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
           <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="828" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+          <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="7AD" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+          <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="6FD" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+          <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="3F8" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+          <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="7AE" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+          <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="DC3" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
         </Condition>
       </Trigger>
-      <Trigger Enabled="true" Name="BossName Hunter" Id="ee038229-22c4-4417-850c-9397a9f48813" RegularExpression="SBCYW">
+      <Trigger Enabled="true" Id="ee038229-22c4-4417-850c-9397a9f48813" Name="BossName Hunter" RegularExpression="SBCYW">
         <Actions>
           <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e BossName Hunter Success! BossName:&lt;t&gt;!" />
         </Actions>
       </Trigger>
-      <Trigger Enabled="true" Name="BossName 标量建立" Id="707db0db-a824-429b-ba30-68c58a8b50db" RegularExpression="BossName Hunter Success! BossName:(?&lt;BossName&gt;[^:]*)!">
+      <Trigger Enabled="true" Id="707db0db-a824-429b-ba30-68c58a8b50db" Name="BossName 标量建立" RegularExpression="BossName Hunter Success! BossName:(?&lt;BossName&gt;[^:]*)!">
         <Actions>
           <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="BossName" VariableExpression="${BossName}" />
           <Action OrderNumber="2" ActionType="Variable" VariableOp="SetString" VariableName="HunterTime" VariableExpression="开启" />
         </Actions>
       </Trigger>
-      <Trigger Enabled="true" Name="1B Hunter" Id="f99c9a4b-6052-4bc1-a213-eb350035544c" RegularExpression="^.{14} (?:\w+ )1B:.{8}:(?&lt;name&gt;.+?):[^:]*:[^:]*:(?&lt;ID&gt;[^:]*)">
+      <Trigger Enabled="true" Id="f99c9a4b-6052-4bc1-a213-eb350035544c" Name="1B Hunter" RegularExpression="^.{14} (?:\w+ )1B:.{8}:(?&lt;name&gt;.+?):[^:]*:[^:]*:(?&lt;ID&gt;[^:]*)">
         <Actions>
           <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e 1B Hunter Catch Success Target:&lt;${name}&gt;,ID:&lt;${ID}&gt;" />
         </Actions>
@@ -38,7 +71,7 @@
           <ConditionSingle Enabled="true" ExpressionL="${var:HunterTime}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
         </Condition>
       </Trigger>
-      <Trigger Enabled="true" Name="Tether Hunter" Id="4c52be0e-f943-4a72-8f03-2c4fed8eb9b3" RegularExpression="^.{15}\S+ 23:(?&lt;ID1&gt;.{8}):(?&lt;TCname1&gt;[^:]*):(?&lt;ID2&gt;.{8}):(?&lt;TCname2&gt;[^:]*):[^:]*:[^:]*:(?&lt;ID3&gt;[^:]*)">
+      <Trigger Enabled="true" Id="4c52be0e-f943-4a72-8f03-2c4fed8eb9b3" Name="Tether Hunter" RegularExpression="^.{15}\S+ 23:(?&lt;ID1&gt;.{8}):(?&lt;TCname1&gt;[^:]*):(?&lt;ID2&gt;.{8}):(?&lt;TCname2&gt;[^:]*):[^:]*:[^:]*:(?&lt;ID3&gt;[^:]*)">
         <Actions>
           <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e Tether Hunter Catch Success Linker1:&lt;${TCname1}&gt;,Linker2:&lt;${TCname2}&gt;,ID:&lt;${ID3}&gt;" />
         </Actions>
@@ -46,22 +79,26 @@
           <ConditionSingle Enabled="true" ExpressionL="${var:HunterTime}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
         </Condition>
       </Trigger>
-      <Trigger Enabled="true" Sequential="True" Name="Skill Hunter" Id="75e2d4d1-9184-4174-b690-083d549d71f3" RegularExpression="^.{14} (?:\w+ )14:(?&lt;BossID&gt;[^:]*):(?&lt;BossName1&gt;[^:]*):(?&lt;SkillID&gt;[^:]*):(?&lt;SkillName&gt;[^:]*):" Description="^.{15}\S+ 16:(?&lt;BossID&gt;[^:]*):(?&lt;BossName&gt;[^:]*):(?&lt;skillId&gt;[^:]+):(?&lt;skillName&gt;[^:]+):(?&lt;id&gt;[^:]{8}):(?&lt;Name&gt;(Psycho|Guo Psycho))">
+      <Trigger Enabled="true" Id="75e2d4d1-9184-4174-b690-083d549d71f3" Name="Skill Hunter" RegularExpression="^.{14} (?:\w+ )14:(?&lt;BossID&gt;[^:]*):(?&lt;BossName1&gt;[^:]*):(?&lt;SkillID&gt;[^:]*):(?&lt;SkillName&gt;[^:]*):[^:]*:[^:]*:(?&lt;Cast&gt;[^:]*)" Sequential="True" Description="^.{15}\S+ 16:(?&lt;BossID&gt;[^:]*):(?&lt;BossName&gt;[^:]*):(?&lt;skillId&gt;[^:]+):(?&lt;skillName&gt;[^:]+):(?&lt;id&gt;[^:]{8}):(?&lt;Name&gt;(Psycho|Guo Psycho))">
         <Actions>
-          <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="100" NamedCallbackName="command" NamedCallbackParam="/e Skill Hunter Catch Success  BossName &lt;${BossName1}&gt; Skill Name：&lt;${SkillName}&gt; Skill ID：&lt;${SkillID}&gt;" />
+          <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="100" NamedCallbackName="command" NamedCallbackParam="/e Skill Hunter Catch Success  Boss Name &lt;${BossName1}&gt; Skill Name：&lt;${SkillName}&gt; Skill ID：&lt;${SkillID}&gt; CastTime：&lt;${Cast}&gt;" />
         </Actions>
         <Condition Enabled="true" Grouping="Or">
           <ConditionSingle Enabled="true" ExpressionL="${lvar:BossID[1]}" ExpressionTypeL="String" ExpressionR="${BossID}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
         </Condition>
       </Trigger>
-      <Trigger Enabled="true" Name="Buff Hunter" Id="36dee015-d0f5-4efd-9d82-9a110d6c4fd2" RegularExpression="^.{14} StatusAdd 1A:(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):E0000000::.{8}:(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)">
+      <Trigger Enabled="true" Id="36dee015-d0f5-4efd-9d82-9a110d6c4fd2" Name="Buff Hunter" RegularExpression="^.{14} StatusAdd 1A:(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):E0000000::.{8}:(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)">
         <Actions>
           <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="200" NamedCallbackName="command" NamedCallbackParam="/e Buff Hunter Catch Success  BuffName &lt;${BuffName}&gt; Buff ID：&lt;${BuffID}&gt; Buff Time：&lt;${Bufftime}&gt; To:&lt;${BuffTarget}&gt; BuffType&lt;${BuffType}&gt; ">
             <Condition Enabled="true" Grouping="And">
               <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="B7D" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
               <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="B5F" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
               <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="2B" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-              <ConditionSingle Enabled="true" ExpressionL="${Bufftime}" ExpressionTypeL="String" ExpressionR="9999.00" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+              <ConditionSingle Enabled="false" ExpressionL="${Bufftime}" ExpressionTypeL="String" ExpressionR="9999.00" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+              <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="1A2" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+              <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="2A" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+              <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="AAE" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+              <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="4EF" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
             </Condition>
           </Action>
         </Actions>
@@ -69,9 +106,11 @@
           <ConditionSingle Enabled="true" ExpressionL="${var:HunterTime}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
         </Condition>
       </Trigger>
-      <Trigger Enabled="true" Name="BOSSID Hunter" Id="56851e04-c931-480a-be59-7d9b56d88639" RegularExpression="^.{14} ActionEffect 15:(?&lt;ID&gt;[^:]*):(?&lt;Name&gt;[^:]*):(?&lt;技能id&gt;[^:]+):[^:]*:(?&lt;TargetID&gt;[^:]*):(?&lt;TargetName&gt;[^:]*)" PeriodRefire="Deny">
+      <Trigger Enabled="true" Id="56851e04-c931-480a-be59-7d9b56d88639" Name="BOSSID Hunter" RegularExpression="^.{14} ActionEffect 15:(?&lt;ID&gt;[^:]*):(?&lt;Name&gt;[^:]*):(?&lt;技能id&gt;[^:]+):[^:]*:(?&lt;TargetID&gt;[^:]*):(?&lt;TargetName&gt;[^:]*)" PeriodRefire="Deny" RefirePeriodExpression="30000" Sequential="True">
         <Actions>
           <Action OrderNumber="1" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="BossID" ListVariableExpression="${TargetID}" />
+          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="5000" />
+          <Action OrderNumber="3" ActionType="Trigger" TriggerOp="DisableTrigger" TriggerId="56851e04-c931-480a-be59-7d9b56d88639" />
         </Actions>
         <Condition Enabled="true" Grouping="And">
           <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
@@ -79,14 +118,24 @@
           <ConditionSingle Enabled="true" ExpressionL="${lvar:BossID.size}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="StringEqualNocase" />
         </Condition>
       </Trigger>
-      <Trigger Enabled="true" Name="BOSS切换" Id="32127705-4db7-4c0a-ab40-0543249e9484" RegularExpression="SBLH">
+      <Trigger Enabled="true" Id="32127705-4db7-4c0a-ab40-0543249e9484" Name="BOSS切换" RegularExpression="SBLH">
         <Actions>
           <Action OrderNumber="1" ActionType="Trigger" TriggerId="ee038229-22c4-4417-850c-9397a9f48813" TriggerForce="regexp,conditions" />
           <Action OrderNumber="2" ActionType="ListVariable" ListVariableName="BossID" />
+          <Action OrderNumber="3" ActionType="Trigger" TriggerOp="EnableTrigger" TriggerId="56851e04-c931-480a-be59-7d9b56d88639" />
         </Actions>
       </Trigger>
-      <Trigger Enabled="false" Name="实体备用" Id="04f76469-7648-4273-9f24-6ceb09e6e153" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:(?&lt;bnpcid&gt;[^:]*).*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+)">
-        <Actions />
+      <Trigger Enabled="true" Id="db92ccff-5421-4186-940d-3760829b475d" Name="ID清空" RegularExpression="^.{14} (?:\w+ )21:.{8}:400000(03|1[026]|11)|任务结束了。|has ended\.|の攻略を終了した。|“(绝欧米茄检证战|最终检测绝境战|絶オメガ検証戦|欧米茄绝境验证战)”任务开始。|「(絶オメガ検証戦|最终检测绝境战|欧米茄绝境验证战)」の攻略を開始した。|The Omega Protocol (Ultimate) has begun.|封锁解除了……">
+        <Actions>
+          <Action OrderNumber="1" ActionType="ListVariable" ListVariableName="BossID" VariableName="p3s_marker_offset" />
+          <Action OrderNumber="2" ActionType="Trigger" TriggerOp="EnableTrigger" TriggerId="56851e04-c931-480a-be59-7d9b56d88639" />
+          <Action OrderNumber="3" ActionType="Trigger" TriggerOp="EnableTrigger" TriggerId="52e59820-1a54-436e-851b-36c98a146607" />
+        </Actions>
+      </Trigger>
+      <Trigger Enabled="true" Id="9b3fde45-95e2-42e7-aaf9-cd2df80ca176" Name="Timeline" RegularExpression="^..+timeline">
+        <Actions>
+          <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e ^.{14} (?:\w+ )14:${lvar:BossID[1]}:(?&lt;BossName1&gt;[^:]*):(?&lt;SkillID&gt;[^:]*):(?&lt;SkillName&gt;[^:]*):" />
+        </Actions>
       </Trigger>
     </Triggers>
   </ExportedFolder>

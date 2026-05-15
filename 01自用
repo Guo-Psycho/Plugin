@@ -1,123 +1,848 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="1.2.0.749">
-  <ExportedFolder Id="14e1e24d-49d5-4851-bb36-cce00c288938" Name=" 01自用" Enabled="true">
+<TriggernometryExport PluginVersion="2.0.8.1">
+  <ExportedFolder Id="d873f502-eaf7-4f21-828f-c266d7a6de9c" Enabled="true" Name="模板">
     <Folders>
-      <Folder Id="ceb736d2-120e-4062-8b0c-b79593ee0063" Name="01Hock Hunter" Enabled="false">
-        <Folders />
+      <Folder Id="ac941104-9718-4a16-ad03-fa569982ea92" Enabled="true" Name="二连机制播报">
         <Triggers>
-          <Trigger Enabled="true" Name="特殊Buff Hunter" Id="badfdfa1-4d27-4a36-b02f-ae6b059ea2f5" RegularExpression="^.{14} StatusAdd 1A:(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):.{8}:(?&lt;BossName&gt;[^:]*):.{8}:(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)">
+          <Trigger Enabled="true" Id="8edaaa6e-03dc-428a-beae-37744993a0f5" Name="标量建立" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(A723):">
             <Actions>
-              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e Buff Hunter Catch Success  BuffName &lt;${BuffName}&gt; Buff ID：&lt;${BuffID}&gt; Buff Time：&lt;${Bufftime}&gt; To:&lt;${BuffTarget}&gt; BuffType&lt;${BuffType}&gt; " ActionType="NamedCallback" ExecutionDelayExpression="200">
-                <Condition Enabled="false" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${BossName}" ExpressionTypeL="String" ExpressionR="${var:BossName}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                  <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="2B" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-                  <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="B5F" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-                  <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="B7D" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-                  <ConditionSingle Enabled="true" ExpressionL="${Bufftime}" ExpressionTypeL="String" ExpressionR="9999.00" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-                </Condition>
-              </Action>
-            </Actions>
-            <Condition Enabled="true" Grouping="And">
-              <ConditionSingle Enabled="true" ExpressionL="${var:HunterTime}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-              <ConditionSingle Enabled="true" ExpressionL="${BossName}" ExpressionTypeL="String" ExpressionR="${var:BossName}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-              <ConditionSingle Enabled="true" ExpressionL="${Bufftime}" ExpressionTypeL="String" ExpressionR="9999.00" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-              <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="B7C" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-              <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="B5F" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-              <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="2B" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-              <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="B7D" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-              <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="968" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-            </Condition>
-          </Trigger>
-          <Trigger Enabled="true" Name="BossName Hunter" Id="ee038229-22c4-4417-850c-9397a9f48813" RegularExpression="SBCYW">
-            <Actions>
-              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e BossName Hunter Success! BossName:&lt;t&gt;!" ActionType="NamedCallback" />
+              <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="ls_变量模板" VariableExpression="模板1" />
+              <Action OrderNumber="2" ActionType="Variable" VariableOp="SetString" VariableName="ls_变量模板" VariableExpression="模板2" />
             </Actions>
           </Trigger>
-          <Trigger Enabled="true" Name="BossName 标量建立" Id="707db0db-a824-429b-ba30-68c58a8b50db" RegularExpression="BossName Hunter Success! BossName:(?&lt;BossName&gt;[^:]*)!">
+          <Trigger Enabled="true" Id="69e0490a-a662-443d-a0b9-5914f1ffb6d0" Name="单一buff标记模板" RegularExpression="^.{14} StatusAdd 1A:(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):(?&lt;FromID&gt;.{8}):(?&lt;BossName&gt;[^:]*):(?&lt;TargetID&gt;.{8}):(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)" PeriodRefire="Deny" RefirePeriodExpression="9000" Sequential="True" Description="原地 AC3&#xD;&#xA;正对boss AC4&#xD;&#xA;背对boss AC5">
             <Actions>
-              <Action OrderNumber="1" VariableOp="SetString" VariableName="BossName" VariableExpression="${BossName}" ActionType="Variable" />
-              <Action OrderNumber="2" VariableOp="SetString" VariableName="HunterTime" VariableExpression="开启" ActionType="Variable" />
-            </Actions>
-          </Trigger>
-          <Trigger Enabled="true" Name="1B Hunter" Id="f99c9a4b-6052-4bc1-a213-eb350035544c" RegularExpression="^.{14} (?:\w+ )1B:.{8}:(?&lt;name&gt;.+?):[^:]*:[^:]*:(?&lt;ID&gt;[^:]*)">
-            <Actions>
-              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e 1B Hunter Catch Success Target:&lt;${name}&gt;,ID:&lt;${ID}&gt;" ActionType="NamedCallback" />
-            </Actions>
-            <Condition Enabled="true" Grouping="Or">
-              <ConditionSingle Enabled="true" ExpressionL="${var:HunterTime}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-            </Condition>
-          </Trigger>
-          <Trigger Enabled="true" Name="Tether Hunter" Id="4c52be0e-f943-4a72-8f03-2c4fed8eb9b3" RegularExpression="^.{15}\S+ 23:(?&lt;ID1&gt;.{8}):(?&lt;TCname1&gt;[^:]*):(?&lt;ID2&gt;.{8}):(?&lt;TCname2&gt;[^:]*):[^:]*:[^:]*:(?&lt;ID3&gt;[^:]*)">
-            <Actions>
-              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e Tether Hunter Catch Success Linker1:&lt;${TCname1}&gt;,Linker2:&lt;${TCname2}&gt;,ID:&lt;${ID3}&gt;" ActionType="NamedCallback" />
-            </Actions>
-          </Trigger>
-          <Trigger Enabled="true" Sequential="True" Name="Skill Hunter" Id="75e2d4d1-9184-4174-b690-083d549d71f3" RegularExpression="^.{14} (?:\w+ )14:(?&lt;BossID&gt;[^:]*):(?&lt;BossName1&gt;[^:]*):(?&lt;SkillID&gt;[^:]*):(?&lt;SkillName&gt;[^:]*):">
-            <Actions>
-              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e Skill Hunter Catch Success  BossName &lt;${BossName1}&gt; Skill Name：&lt;${SkillName}&gt; Skill ID：&lt;${SkillID}&gt;" ActionType="NamedCallback" ExecutionDelayExpression="100" />
-            </Actions>
-            <Condition Enabled="true" Grouping="Or">
-              <ConditionSingle Enabled="true" ExpressionL="${lvar:BossID[1]}" ExpressionTypeL="String" ExpressionR="${BossID}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-            </Condition>
-          </Trigger>
-          <Trigger Enabled="true" Name="Buff Hunter" Id="36dee015-d0f5-4efd-9d82-9a110d6c4fd2" RegularExpression="^.{14} StatusAdd 1A:(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):E0000000::.{8}:(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)">
-            <Actions>
-              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e Buff Hunter Catch Success  BuffName &lt;${BuffName}&gt; Buff ID：&lt;${BuffID}&gt; Buff Time：&lt;${Bufftime}&gt; To:&lt;${BuffTarget}&gt; BuffType&lt;${BuffType}&gt; " ActionType="NamedCallback" ExecutionDelayExpression="200">
+              <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="200" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${var:mt_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
                 <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="B7D" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-                  <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="B5F" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-                  <ConditionSingle Enabled="true" ExpressionL="${BuffID}" ExpressionTypeL="String" ExpressionR="2B" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-                  <ConditionSingle Enabled="true" ExpressionL="${Bufftime}" ExpressionTypeL="String" ExpressionR="9999.00" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+                  <ConditionSingle Enabled="true" ExpressionL="${var:mt_获取模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="2" ActionType="NamedCallback" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${var:st_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:st_获取模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="NamedCallback" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h1_获取模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="NamedCallback" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${var:h2_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h2_获取模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="NamedCallback" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${var:d1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d1_获取模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" ActionType="NamedCallback" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${var:d2_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d2_获取模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" ActionType="NamedCallback" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${var:d3_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d3_获取模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" ActionType="NamedCallback" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${var:d4_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d4_获取模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="9" ActionType="Trigger" ExecutionDelayExpression="44000" TriggerId="77adf7bc-269a-4b49-8d9a-c8e170b71e33" TriggerForce="regexp" />
+            </Actions>
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="03cbe065-6406-4eba-8907-4f67149d2cab" Name="单一BUFF获取模板" RegularExpression="^.{14} StatusAdd 1A:(1160):(?&lt;BuffName&gt;[^:]*):[^:]*:.{8}:(?&lt;BossName&gt;[^:]*):.{8}:(?&lt;name&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)" Description="原地 AC3&#xD;&#xA;正对boss AC4&#xD;&#xA;背对boss AC5">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Placeholder" Description="检索${name}" DescriptionOverride="True" />
+              <Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="mt_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="Variable" VariableOp="SetNumeric" VariableName="st_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="Variable" VariableOp="SetNumeric" VariableName="h1_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="Variable" VariableOp="SetNumeric" VariableName="h2_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" ActionType="Variable" VariableOp="SetNumeric" VariableName="d1_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" ActionType="Variable" VariableOp="SetNumeric" VariableName="d2_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" ActionType="Variable" VariableOp="SetNumeric" VariableName="d3_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="9" ActionType="Variable" VariableOp="SetNumeric" VariableName="d4_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="10" ActionType="Variable" VariableOp="SetNumeric" VariableName="自己_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                 </Condition>
               </Action>
             </Actions>
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="4450dd89-65ae-435f-acc3-53d47a9e8579" Enabled="true" Name="列表标记">
+        <Triggers>
+          <Trigger Enabled="true" Id="a7aad58a-ebe8-4231-8231-5586b9282684" Name="列表获取" RegularExpression="^.{14} StatusAdd 1A:1(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):(?&lt;FromID&gt;.{8}):(?&lt;BossName&gt;[^:]*):(?&lt;TargetID&gt;.{8}):(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)">
+            <Actions>
+              <Action OrderNumber="1" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_BBuff" ListVariableExpression="${BuffTarget}" VariableOp="SetString" VariableName="ls_BBuff" VariableExpression="${BuffTarget}" />
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="false" Id="a64a1151-c7d4-42e7-aa04-349c09fc526e" Name="列表标记" RegularExpression="^.{14} StatusAdd 1A:1(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):(?&lt;FromID&gt;.{8}):(?&lt;BossName&gt;[^:]*):(?&lt;TargetID&gt;.{8}):(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)" PeriodRefire="Deny" RefirePeriodExpression="100" Sequential="True">
+            <Actions>
+              <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_BBuff[1]}_no}&gt;" />
+              <Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_BBuff[2]}_no}&gt;" />
+            </Actions>
             <Condition Enabled="true" Grouping="Or">
-              <ConditionSingle Enabled="true" ExpressionL="${var:HunterTime}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
           </Trigger>
-          <Trigger Enabled="true" Name="BOSSID Hunter" Id="56851e04-c931-480a-be59-7d9b56d88639" RegularExpression="^.{14} ActionEffect 15:(?&lt;ID&gt;[^:]*):(?&lt;Name&gt;[^:]*):(?&lt;技能id&gt;[^:]+):[^:]*:(?&lt;TargetID&gt;[^:]*):(?&lt;TargetName&gt;[^:]*)" PeriodRefire="Deny">
+        </Triggers>
+      </Folder>
+      <Folder Id="04b848c4-916e-4930-87c4-76eca6b0e4e4" Enabled="true" Name="坐标相关">
+        <Triggers>
+          <Trigger Enabled="true" Id="e936f244-23ec-492f-b5d8-9cc9607ed889" Name="八方坐标判断" RegularExpression="^.{15}\S+ 107:(?&lt;id&gt;.{8}):B457:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*)" Sequential="True">
             <Actions>
-              <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="BossID" ListVariableExpression="${TargetID}" ActionType="ListVariable" />
+              <Action OrderNumber="1" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="ls_11s人群塔" ListVariableExpression="0" VariableOp="SetNumeric" VariableName="ls_11s人群塔" VariableExpression="roundvec(${x}-100, ${y}-100, -4)">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="roundvec(${x}-100, ${y}-100, -4)" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="2" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="ls_11s人群塔" ListVariableExpression="1" VariableOp="SetNumeric" VariableName="ls_11s人群塔" VariableExpression="roundvec(${x}-100, ${y}-100, -4)">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="roundvec(${x}-100, ${y}-100, -4)" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="ls_11s人群塔" ListVariableExpression="2" VariableOp="SetNumeric" VariableName="ls_11s人群塔" VariableExpression="roundvec(${x}-100, ${y}-100, -4)">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="roundvec(${x}-100, ${y}-100, -4)" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="ls_11s人群塔" ListVariableExpression="3" VariableOp="SetNumeric" VariableName="ls_11s人群塔" VariableExpression="roundvec(${x}-100, ${y}-100, -4)">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="roundvec(${x}-100, ${y}-100, -4)" ExpressionTypeL="Numeric" ExpressionR="3" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="ListVariable" ListVariableOp="SortNumericAsc" ListVariableName="ls_11s人群塔">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${lvar:ls_11s人群塔.size}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
             </Actions>
-            <Condition Enabled="true" Grouping="And">
-              <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-              <ConditionSingle Enabled="true" ExpressionL="${TargetName}" ExpressionTypeL="String" ExpressionR="${var:BossName}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-              <ConditionSingle Enabled="true" ExpressionL="${lvar:BossID.size}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="StringEqualNocase" />
+          </Trigger>
+          <Trigger Enabled="true" Id="bc2c5801-b67f-4407-b2ed-98161f1754df" Name="释放技能的实体位置" RegularExpression="^.{15}\S+ 107:(?&lt;id&gt;.{8}):(?&lt;type&gt;B510|B50F|B511):(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*)" Description="前后B510 左右B50F 钢铁B511&#xD;&#xA;上99.99 87.99中99.99 104.47下99.99 111.98&#xD;&#xA;[01:45:59.077] StartsCasting 14:4000D97D:人形分身:B50F:力量喷涌:4000D97D:人形分身:4.700:100.00:88.00:0.00:0.00&#xD;&#xA;[01:45:59.077] StartsCasting 14:4000D97F:人形分身:B510:力量喷涌:4000D97F:人形分身:4.700:100.00:112.00:0.00:0.00&#xD;&#xA;[01:45:59.077] StartsCasting 14:4000D97E:人形分身:B511:蛇踢:4000D97E:人形分身:4.700:100.00:104.50:0.00:0.00">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Variable" TTSRouting="Triggernometry" UseTTSTextExpression="接同色分摊" UseTTSRateExpression="2" VariableOp="SetString" VariableName="ls_fs上" VariableExpression="前后">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${numeric:abs(${_ffxiventity[${id}].x}-99.99)}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  <ConditionSingle Enabled="true" ExpressionL="${numeric:abs(${_ffxiventity[${id}].y}-87.99)}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="B510" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="2" ActionType="Variable" TTSRouting="Triggernometry" UseTTSTextExpression="接同色分摊" UseTTSRateExpression="2" VariableOp="SetString" VariableName="ls_fs上" VariableExpression="左右">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${numeric:abs(${_ffxiventity[${id}].x}-99.99)}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  <ConditionSingle Enabled="true" ExpressionL="${numeric:abs(${_ffxiventity[${id}].y}-87.99)}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="B50F" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="Variable" TTSRouting="Triggernometry" UseTTSTextExpression="接同色分摊" UseTTSRateExpression="2" VariableOp="SetString" VariableName="ls_fs中" VariableExpression="钢铁">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${numeric:abs(${_ffxiventity[${id}].x}-99.99)}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  <ConditionSingle Enabled="true" ExpressionL="${numeric:abs(${_ffxiventity[${id}].y}-104.47)}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="B511" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="Variable" TTSRouting="Triggernometry" UseTTSTextExpression="接同色分摊" UseTTSRateExpression="2" VariableOp="SetString" VariableName="ls_fs下" VariableExpression="前后">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${numeric:abs(${_ffxiventity[${id}].x}-99.99)}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  <ConditionSingle Enabled="true" ExpressionL="${numeric:abs(${_ffxiventity[${id}].y}-111.98)}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="B510" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="Variable" TTSRouting="Triggernometry" UseTTSTextExpression="接同色分摊" UseTTSRateExpression="2" VariableOp="SetString" VariableName="ls_fs下" VariableExpression="左右">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${numeric:abs(${_ffxiventity[${id}].x}-99.99)}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  <ConditionSingle Enabled="true" ExpressionL="${numeric:abs(${_ffxiventity[${id}].y}-111.98)}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="B50F" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+            </Actions>
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="d35dd573-9c07-4f65-972b-2702795c19eb" Enabled="false" Name="4人有Buff 4人无Buff 排序">
+        <Triggers>
+          <Trigger Enabled="true" Id="faf7e113-8c7f-4807-8e0e-e83c92088330" Name="点名记录" RegularExpression="^.{14} StatusAdd 1A:(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):E0000000::.{8}:(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Placeholder" Description="匹配字段：Name" DescriptionOverride="True" />
+              <Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="mt_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="Variable" VariableOp="SetNumeric" VariableName="st_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="Variable" VariableOp="SetNumeric" VariableName="h1_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="Variable" VariableOp="SetNumeric" VariableName="h2_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" ActionType="Variable" VariableOp="SetNumeric" VariableName="d1_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" ActionType="Variable" VariableOp="SetNumeric" VariableName="d2_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" ActionType="Variable" VariableOp="SetNumeric" VariableName="d3_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="9" ActionType="Variable" VariableOp="SetNumeric" VariableName="d4_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="10" ActionType="Variable" ExecutionDelayExpression="20000" VariableOp="UnsetRegex" VariableName=".{2}_模板" VariableExpression="0">
+                <Condition Enabled="false" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Id="4595f257-68b7-4268-a171-475a5f93cc1d" Name="模板列表变量设置" RegularExpression="^.{14} StatusAdd 1A:(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):E0000000::.{8}:(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Placeholder" Description="匹配字段：Name" DescriptionOverride="True" />
+              <Action OrderNumber="2" ActionType="ListVariable" ExecutionDelayExpression="500" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:mt_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:mt_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:st_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:st_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:h1_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h1_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:h2_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h2_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:d1_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d1_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:d2_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d2_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:d3_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d3_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="9" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:d4_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d4_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="10" ActionType="LogMessage" LogMessageText="闲人模板获取" LogProcess="True" />
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Id="60daf125-ce30-46da-99da-2cb7aef46ee3" Name="闲人模板获取" RegularExpression="闲人模板获取" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Placeholder" Description="匹配字段：Name" DescriptionOverride="True" />
+              <Action OrderNumber="2" ActionType="ListVariable" ExecutionDelayExpression="200" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:mt_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:mt_闲人模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:st_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:st_闲人模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:h1_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h1_闲人模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:h2_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h2_闲人模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:d1_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d1_闲人模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:d2_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d2_闲人模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:d3_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d3_闲人模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="9" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:d4_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d4_闲人模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="200" />
+              <Action OrderNumber="11" ActionType="LogMessage" LogMessageText="列表获取完成" LogProcess="True" />
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${lvar:jk_模板列表.size}" ExpressionTypeL="Numeric" ExpressionR="4" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
             </Condition>
           </Trigger>
-          <Trigger Enabled="true" Name="BOSS切换" Id="32127705-4db7-4c0a-ab40-0543249e9484" RegularExpression="SBLH">
+          <Trigger Enabled="true" Id="9aa5a99c-7c72-490e-aea4-a27d28ae9a5c" Name="标记" RegularExpression="列表获取完成" Sequential="True">
             <Actions>
-              <Action OrderNumber="1" TriggerId="ee038229-22c4-4417-850c-9397a9f48813" TriggerForce="regexp,conditions" ActionType="Trigger" />
-              <Action OrderNumber="2" ListVariableName="BossID" ActionType="ListVariable" />
+              <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_模板列表[1]}_no}&gt;" />
+              <Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_模板列表[2]}_no}&gt;" />
+              <Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_模板列表[3]}_no}&gt;" />
+              <Action OrderNumber="4" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_模板列表[4]}_no}&gt;" />
+              <Action OrderNumber="5" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${lvar:jk_闲人模板[1]}_no}&gt;" />
+              <Action OrderNumber="6" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${lvar:jk_闲人模板[2]}_no}&gt;" />
+              <Action OrderNumber="7" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk stop &lt;${var:${lvar:jk_闲人模板[3]}_no}&gt;" />
+              <Action OrderNumber="8" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk stop &lt;${var:${lvar:jk_闲人模板[4]}_no}&gt;" />
+              <Action OrderNumber="9" ActionType="Trigger" ExecutionDelayExpression="20000" TriggerId="065abfcc-168b-40da-92c4-6d981b428f37" TriggerForce="regexp,conditions" />
             </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="11242867-8712-4530-90ec-8eaadbf43418" Name="Debug Log1">
+            <Actions>
+              <Action OrderNumber="1" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::1002B745:斯菲因:00:157167:" LogProcess="True" />
+              <Action OrderNumber="2" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::102DD31A:阿莉塞:00:142479:" LogProcess="True" />
+              <Action OrderNumber="3" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::102E6F9E:可露儿:00:158140:" LogProcess="True" />
+              <Action OrderNumber="4" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::10271A9A:Psycho:00:142479:" LogProcess="True" />
+            </Actions>
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="a65f653b-a484-4c8e-87d4-6afbe7ecb82c" Enabled="false" Name="2人有Buff 6人无Buff 排序">
+        <Triggers>
+          <Trigger Enabled="true" Id="8c32317c-866f-4ffd-a600-ddd60b75c476" Name="点名记录" RegularExpression="^.{14} (?:\w+ )1A:99D:[^:]*:[^:]*:(?&lt;second&gt;[^:]*):.{8}:[^:]*:(?&lt;pid&gt;1[0-9A-F]{7}):(?&lt;Name&gt;[^:]*):">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Placeholder" Description="匹配字段：Name" DescriptionOverride="True" />
+              <Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="mt_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="Variable" VariableOp="SetNumeric" VariableName="st_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="Variable" VariableOp="SetNumeric" VariableName="h1_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="Variable" VariableOp="SetNumeric" VariableName="h2_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" ActionType="Variable" VariableOp="SetNumeric" VariableName="d1_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" ActionType="Variable" VariableOp="SetNumeric" VariableName="d2_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" ActionType="Variable" VariableOp="SetNumeric" VariableName="d3_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="9" ActionType="Variable" VariableOp="SetNumeric" VariableName="d4_模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="10" ActionType="Variable" ExecutionDelayExpression="20000" VariableOp="UnsetRegex" VariableName=".{2}_模板" VariableExpression="0">
+                <Condition Enabled="false" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Id="035c113a-8ae1-4eb9-a43a-161ed99a543c" Name="模板列表变量设置" RegularExpression="^.{14} (?:\w+ )1A:99D:[^:]*:[^:]*:(?&lt;second&gt;[^:]*):.{8}:[^:]*:(?&lt;pid&gt;1[0-9A-F]{7}):(?&lt;Name&gt;[^:]*):" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Placeholder" Description="匹配字段：Name" DescriptionOverride="True" />
+              <Action OrderNumber="2" ActionType="ListVariable" ExecutionDelayExpression="500" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:mt_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:mt_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:st_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:st_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:h1_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h1_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:h2_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h2_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:d1_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d1_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:d2_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d2_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:d3_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d3_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="9" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="jk_模板列表" ListVariableExpression="${var:d4_name}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d4_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="10" ActionType="LogMessage" LogMessageText="闲人模板获取" LogProcess="True" />
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Id="98722926-1024-4349-b6d3-7fd27ec09898" Name="闲人模板获取" RegularExpression="闲人模板获取" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Placeholder" Description="匹配字段：Name" DescriptionOverride="True" />
+              <Action OrderNumber="2" ActionType="ListVariable" ExecutionDelayExpression="200" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:mt_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:mt_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:st_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:st_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:h1_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h1_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:h2_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h2_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:d1_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d1_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:d2_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d2_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:d3_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d3_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="9" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_闲人模板" ListVariableExpression="${var:d4_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d4_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="200" />
+              <Action OrderNumber="11" ActionType="LogMessage" LogMessageText="列表获取完成" LogProcess="True" />
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${lvar:jk_模板列表.size}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="d50d1d4a-11fd-438a-b00a-3420125355be" Name="标记" RegularExpression="列表获取完成" Sequential="True">
+            <Actions>
+              <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${lvar:jk_模板列表[1]}_no}&gt;" />
+              <Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${lvar:jk_模板列表[2]}_no}&gt;" />
+              <Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_闲人模板[1]}_no}&gt;" />
+              <Action OrderNumber="4" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_闲人模板[2]}_no}&gt;" />
+              <Action OrderNumber="5" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_闲人模板[3]}_no}&gt;" />
+              <Action OrderNumber="6" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_闲人模板[4]}_no}&gt;" />
+              <Action OrderNumber="7" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_闲人模板[5]}_no}&gt;" />
+              <Action OrderNumber="8" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_闲人模板[6]}_no}&gt;" />
+              <Action OrderNumber="9" ActionType="Trigger" ExecutionDelayExpression="20000" TriggerId="065abfcc-168b-40da-92c4-6d981b428f37" TriggerForce="regexp,conditions" />
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="f304a17d-4e37-4a8d-953a-61127ae1c09e" Name="Debug Log1">
+            <Actions>
+              <Action OrderNumber="1" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::1002B745:斯菲因:00:157167:" LogProcess="True" />
+              <Action OrderNumber="2" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::102DD31A:阿莉塞:00:142479:" LogProcess="True" />
+              <Action OrderNumber="3" Enabled="False" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::102E6F9E:可露儿:00:158140:" LogProcess="True" />
+              <Action OrderNumber="4" Enabled="False" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::10271A9A:Psycho:00:142479:" LogProcess="True" />
+            </Actions>
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="b7dd559d-aed0-419d-9945-ccd5c5ef52a1" Enabled="true" Name="狂水模板">
+        <Triggers>
+          <Trigger Enabled="true" Id="16ac19f4-f327-4603-abe3-d1cc7b3b028e" Name="单一BUFF获取模板1" RegularExpression="^.{14} StatusAdd 1A:(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):(?&lt;FromID&gt;.{8}):(?&lt;BossName&gt;[^:]*):(?&lt;TargetID&gt;.{8}):(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)" Description="原地 AC3&#xD;&#xA;正对boss AC4&#xD;&#xA;背对boss AC5">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Placeholder" Description="检索${name}" DescriptionOverride="True" />
+              <Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="mt_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="Variable" VariableOp="SetNumeric" VariableName="st_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="Variable" VariableOp="SetNumeric" VariableName="h1_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="Variable" VariableOp="SetNumeric" VariableName="h2_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" ActionType="Variable" VariableOp="SetNumeric" VariableName="d1_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" ActionType="Variable" VariableOp="SetNumeric" VariableName="d2_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" ActionType="Variable" VariableOp="SetNumeric" VariableName="d3_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="9" ActionType="Variable" VariableOp="SetNumeric" VariableName="d4_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="10" ActionType="Variable" VariableOp="SetNumeric" VariableName="自己_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Id="71d5e2ed-be88-48ed-93de-b84a189f9f03" Name="单一BUFF获取模板2" RegularExpression="^.{14} StatusAdd 1A:(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):(?&lt;FromID&gt;.{8}):(?&lt;BossName&gt;[^:]*):(?&lt;TargetID&gt;.{8}):(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)" Description="原地 AC3&#xD;&#xA;正对boss AC4&#xD;&#xA;背对boss AC5">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Placeholder" Description="检索${name}" DescriptionOverride="True" />
+              <Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="mt_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="Variable" VariableOp="SetNumeric" VariableName="st_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="Variable" VariableOp="SetNumeric" VariableName="h1_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="Variable" VariableOp="SetNumeric" VariableName="h2_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" ActionType="Variable" VariableOp="SetNumeric" VariableName="d1_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" ActionType="Variable" VariableOp="SetNumeric" VariableName="d2_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" ActionType="Variable" VariableOp="SetNumeric" VariableName="d3_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="9" ActionType="Variable" VariableOp="SetNumeric" VariableName="d4_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="10" ActionType="Variable" VariableOp="SetNumeric" VariableName="自己_获取模板" VariableExpression="1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Id="f687b04f-dcc4-496e-947f-48a50cea6a2c" Name="模板列表（name）" RegularExpression="^.{14} StatusAdd 1A:(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):(?&lt;FromID&gt;.{8}):(?&lt;BossName&gt;[^:]*):(?&lt;TargetID&gt;.{8}):(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)" Sequential="True">
+            <Actions>
+              <Action OrderNumber="1" ActionType="ListVariable" ExecutionDelayExpression="300" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${var:mt_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:mt_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="2" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${var:h1_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h1_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${var:d1_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d1_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${var:d3_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d3_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${var:d2_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d2_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${var:h2_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h2_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${var:st_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:st_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${var:d4_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d4_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Id="c7d5a07c-ae04-4fdb-8a65-75d773f4f0a3" Name="模板列表（ID）" RegularExpression="^.{14} StatusAdd 1A:(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):(?&lt;FromID&gt;.{8}):(?&lt;BossName&gt;[^:]*):(?&lt;TargetID&gt;.{8}):(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)" Sequential="True">
+            <Actions>
+              <Action OrderNumber="1" ActionType="ListVariable" ExecutionDelayExpression="300" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${_ffxiventity[${var:mt_name}].id}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:mt_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="2" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${_ffxiventity[${var:h1_name}].id}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h1_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${_ffxiventity[${var:d1_name}].id}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d1_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${_ffxiventity[${var:d3_name}].id}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d3_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${_ffxiventity[${var:d2_name}].id}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d2_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${_ffxiventity[${var:h2_name}].id}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:h2_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${_ffxiventity[${var:st_name}].id}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:st_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" ActionType="ListVariable" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="jk_模板" ListVariableExpression="${_ffxiventity[${var:d4_name}].id}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:d4_模板}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="false" Id="39fe927a-833f-4409-a0cd-1c60dcdcbeef" Name="列表标记" RegularExpression="^.{14} StatusAdd 1A:1(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):(?&lt;FromID&gt;.{8}):(?&lt;BossName&gt;[^:]*):(?&lt;TargetID&gt;.{8}):(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)" PeriodRefire="Deny" RefirePeriodExpression="100" Sequential="True">
+            <Actions>
+              <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_BBuff[1]}_no}&gt;" />
+              <Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${lvar:jk_BBuff[2]}_no}&gt;" />
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
           </Trigger>
         </Triggers>
       </Folder>
     </Folders>
     <Triggers>
-      <Trigger Enabled="true" Name="补雷" Id="3a867140-070d-4692-a50b-d54c16527d91" RegularExpression="^.{14} StatusAdd 1A:F1F:(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):.{8}:(?&lt;Name&gt;[^:]*):.{8}:(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)">
+      <Trigger Enabled="true" Id="11a566d4-748d-497e-b7be-b0e47f2eede2" Name="简单模板" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(A723):" PeriodRefire="Deny" RefirePeriodExpression="100">
         <Actions>
-          <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e 雷 &lt;se.3&gt;&lt;se.3&gt;&lt;se.3&gt;" ActionType="NamedCallback" ExecutionDelayExpression="24000" />
-          <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e 雷 &lt;se.3&gt;&lt;se.3&gt;&lt;se.3&gt;" ActionType="NamedCallback" ExecutionDelayExpression="300" />
+          <Action OrderNumber="1" ActionType="UseTTS" TTSRouting="Triggernometry" UseTTSTextExpression="简单模板" UseTTSRateExpression="2">
+            <Condition Enabled="false" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="2" ActionType="Trigger" TriggerId="78d7bbac-b00b-453c-a829-3247439a89af" TriggerText="Tip_Subtitle:简单模板:5:0:0:main">
+            <Condition Enabled="false" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="3" Enabled="False" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/p ">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="4" Enabled="False" ActionType="LogMessage" LogMessageText="cd5:5.7" LogProcess="True" />
         </Actions>
-        <Condition Enabled="true" Grouping="Or">
-          <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-        </Condition>
       </Trigger>
-      <Trigger Enabled="true" Name="队长记录" Id="42bd2316-932d-4b1e-a891-f776eb3e1bbf" RegularExpression="^..+[^零]零式.+任务结束了。">
+      <Trigger Enabled="true" Id="03e4f81a-44f0-4ac9-922a-6d1801dd56a6" Name="发宏" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(1111):" PeriodRefire="Deny" RefirePeriodExpression="100" Sequential="True">
         <Actions>
-          <Action OrderNumber="1" TTSRouting="Triggernometry" UseTTSVolumeExpression="" UseTTSRateExpression="" TriggerId="d3814f05-ee24-489f-97bd-592eddfd4577" TriggerText="Tip_Subtitle:记得截图装备分配:20:0:0:main" ActionType="Trigger" />
-          <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e 截图 截图 截图！&lt;se.6&gt;" ActionType="NamedCallback" />
+          <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/p    逆扇形     本体       顺扇形">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/p        4             A              1">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/p 逆                                          顺 ">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="4" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/p 分  D                               B   分">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="5" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/p 摊                                          摊">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="6" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/p       3              C               2">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="7" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/p    逆钢铁    不接线    顺钢铁">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="8" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/p ←C3D4                A1B2→">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
         </Actions>
       </Trigger>
-      <Trigger Enabled="true" Name="改变面向" Id="c92518c1-0c87-497b-a869-63cd44ca0107" RegularExpression="^.{15}\S+ 1A:1162:[^:]+:(?&lt;t&gt;21[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):">
+      <Trigger Enabled="true" Id="3d267931-0916-4fb0-88d7-cc025434938e" Name="坐标画图" RegularExpression="^.{15}\S+ 107:(?&lt;id&gt;.{8}):B510:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]*)">
         <Actions>
-          <Action OrderNumber="1" LogProcess="True" ActionType="Placeholder" ExecutionDelayExpression="(${t} - 0.1) * 1000" />
-          <Action OrderNumber="2" LogProcess="True" NamedCallbackName="M6s_AutoFly" NamedCallbackParam="${v:M6s_双画_dirN4}" ActionType="NamedCallback" />
+          <Action OrderNumber="1" Enabled="False" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/p ">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="2" Enabled="False" ActionType="LogMessage" LogMessageText="cd5:5.7" LogProcess="True" />
+          <Action OrderNumber="3" Enabled="False" ActionType="NamedCallback" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: rect&#xD;&#xA;t: 9&#xD;&#xA;Tag:矩形&#xD;&#xA;Pos:${x}, ${y}, ${z}&#xD;&#xA;Angle: ${h}&#xD;&#xA;Scale: 5, 62, 1&#xD;&#xA;Color: 1, 1, 1, 1&#xD;&#xA;" UseTTSTextExpression="Ex7f_鸣笛_θ" />
+          <Action OrderNumber="4" Enabled="False" ActionType="NamedCallback" Description="月环外径60。外围黄色危险区。Donut可能不被PictoACT支持,改为双Circle模拟。" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;Tag:圆形&#xD;&#xA;Pos: ${x}, ${y}&#xD;&#xA;Scale: 60, 60, 1&#xD;&#xA;Color: 1, 1, 0, 0.45&#xD;&#xA;t: 8" />
+          <Action OrderNumber="5" Enabled="False" ActionType="NamedCallback" Description="月环外径60。外围黄色危险区。Donut可能不被PictoACT支持,改为双Circle模拟。" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan120&#xD;&#xA;Tag: 新月&#xD;&#xA;t: 3.7&#xD;&#xA;Pos: ${x}, ${y}, ${z}&#xD;&#xA;Angle: ${h}&#xD;&#xA;Scale: 40" />
+        </Actions>
+      </Trigger>
+      <Trigger Enabled="true" Id="4accb6d3-6208-4258-bee2-51e021fb1d5c" Name="画八方用108" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B5DE):.{8}:[^:]*:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]+)">
+        <Actions>
+          <Action OrderNumber="1" Enabled="False" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan30&#xD;&#xA;Tag: MAs_水波_原位&#xD;&#xA;t: 2.5&#xD;&#xA;Pos: ${_entity[${sid}].xy}&#xD;&#xA;Angle: ${h}&#xD;&#xA;Scale: 60, 60, 1" />
+        </Actions>
+      </Trigger>
+      <Trigger Enabled="true" Id="ebc22622-fa17-44ac-9e05-17a980df69dd" Name="单个BUFF单个人标记" RegularExpression="^.{14} StatusAdd 1A:1(?&lt;BuffID&gt;[^:]*):(?&lt;BuffName&gt;[^:]*):(?&lt;Bufftime&gt;[^:]*):(?&lt;FromID&gt;.{8}):(?&lt;BossName&gt;[^:]*):(?&lt;TargetID&gt;.{8}):(?&lt;BuffTarget&gt;[^:]*):(?&lt;BuffType&gt;[^:]*)">
+        <Actions>
+          <Action OrderNumber="1" ActionType="NamedCallback" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" NamedCallbackName="mark" NamedCallbackParam="{&quot;ActorID&quot;:0x${pid},&quot;MarkType&quot;:6}" UseTTSTextExpression="准备组内截球">
+            <Condition Enabled="false" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${var:mt_分摊}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Condition>
+          </Action>
         </Actions>
         <Condition Enabled="true" Grouping="And">
-          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-          <ConditionSingle Enabled="true" ExpressionL="${pd:S7b_cfg[M6s_AutoFly]} ?? 1" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+          <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
         </Condition>
       </Trigger>
     </Triggers>

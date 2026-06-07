@@ -596,11 +596,6 @@
                   </Action>
                 </Actions>
               </Trigger>
-              <Trigger Enabled="true" Id="732db040-71b8-4949-b855-6d7a11cf3144" Name="播报魔法（冰）" RegularExpression="^U7b12_魔法:b真冰:(?&lt;b真冰&gt;[01]):b冰主斜:(?&lt;b冰主斜&gt;[01])">
-                <Actions>
-                  <Action OrderNumber="1" ActionType="UseTTS" ExecutionDelayExpression="1000" UseTTSTextExpression="去${if: ${b真冰} ? 冰外 : 冰上 }" />
-                </Actions>
-              </Trigger>
               <Trigger Enabled="true" Id="e60de1c5-3ad1-478f-aae6-c067f4c9e50b" Name="冰雷画图" RegularExpression="^U7b11b_魔法:b真冰:(?&lt;b真冰&gt;[01]):b真雷:(?&lt;b真雷&gt;[01]):外雷dirN4:(?&lt;外雷dirN4&gt;[0-3]):b冰朝雷中点:(?&lt;b冰朝雷中点&gt;[01])">
                 <Actions>
                   <Action OrderNumber="1" ActionType="Placeholder" Description="“实际冰扇形中轴线是否对准雷直条的中点”" DescriptionOverride="True" />
@@ -614,6 +609,11 @@
                       <ConditionSingle Enabled="true" ExpressionL="${b冰朝雷中点}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                     </Condition>
                   </Action>
+                </Actions>
+              </Trigger>
+              <Trigger Enabled="true" Id="732db040-71b8-4949-b855-6d7a11cf3144" Name="3. 播报魔法（冰）" RegularExpression="^U7b12_魔法:b真冰:(?&lt;b真冰&gt;[01]):b冰主斜:(?&lt;b冰主斜&gt;[01])">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="UseTTS" ExecutionDelayExpression="1000" UseTTSTextExpression="去${if: ${b真冰} ? 冰上 : 冰外 }" />
                 </Actions>
               </Trigger>
             </Triggers>
@@ -730,300 +730,6 @@
                 <Actions>
                   <Action OrderNumber="1" ActionType="UseTTS" ExecutionDelayExpression="(${Bufftime} * 1000)-4000" TTSRouting="Triggernometry" UseTTSTextExpression="同职能吃击退" UseTTSRateExpression="2" />
                   <Action OrderNumber="2" ActionType="Trigger" ExecutionDelayExpression="(${Bufftime} * 1000)-4000" TriggerId="78d7bbac-b00b-453c-a829-3247439a89af" TriggerText="Tip_Subtitle:同职能吃击退:5:0:0:main" />
-                </Actions>
-              </Trigger>
-            </Triggers>
-          </Folder>
-          <Folder Id="838f9941-1eb5-4f83-b5ca-557c866211a8" Enabled="true" Name="连线">
-            <Triggers>
-              <Trigger Enabled="false" Id="475cbbe7-5eb9-48f9-b4b9-c5b8440b7ea9" Name="连线获取" RegularExpression="^.{15}\S+ 23:(?&lt;ID1&gt;.{8}):(?&lt;TCname1&gt;[^:]*):(?&lt;ID2&gt;.{8}):(?&lt;TCname2&gt;[^:]*):[^:]*:[^:]*:(?&lt;ID3&gt;[^:]*)" PeriodRefire="Deny" RefirePeriodExpression="5000">
-                <Actions>
-                  <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="yx_石线" VariableExpression="${ID1}" />
-                  <Action OrderNumber="2" ActionType="Variable" VariableOp="SetString" VariableName="yx_人线" VariableExpression="${TCname2}" />
-                </Actions>
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${var:yx_Ltime}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                  <ConditionSingle Enabled="true" ExpressionL="${var:yx_Ltime}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                  <ConditionSingle Enabled="true" ExpressionL="${var:yx_Stime}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                </Condition>
-              </Trigger>
-              <Trigger Enabled="true" Id="bb35a886-5aea-4e63-aca3-fa17929c6fc9" Name="线计数" RegularExpression="^.{14} (?:\w+ )14:(?&lt;BossID&gt;[^:]*):[^:]*:(BAA6|BA95)">
-                <Actions>
-                  <Action OrderNumber="1" ActionType="Variable" VariableOp="SetNumeric" VariableName="yx_Ltime" VariableExpression="${var:yx_Ltime}+1" />
-                </Actions>
-              </Trigger>
-              <Trigger Enabled="true" Id="580b3640-f6d8-4b28-99e7-4eefe999e128" Name="泥圈石头连线判断" RegularExpression="^.{14} (?:\w+ )10F:(?&lt;ID&gt;.+?):[^:]*:[^:]*:[^:]*:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*)" Sequential="True">
-                <Actions>
-                  <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="2000" />
-                  <Action OrderNumber="2" ActionType="UseTTS" TTSRouting="Triggernometry" UseTTSTextExpression="DPS扔石头" UseTTSRateExpression="2">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionGroup Enabled="true" Grouping="And">
-                        <ConditionGroup Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="126.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                      </ConditionGroup>
-                      <ConditionGroup Enabled="true" Grouping="And">
-                        <ConditionGroup Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="102.5000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                      </ConditionGroup>
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="3" ActionType="Trigger" TriggerId="78d7bbac-b00b-453c-a829-3247439a89af" TriggerText="Tip_Subtitle:DPS去场外:5:0:0:main">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionGroup Enabled="true" Grouping="Or">
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionGroup Enabled="true" Grouping="Or">
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          </ConditionGroup>
-                          <ConditionGroup Enabled="true" Grouping="And">
-                            <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="126.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          </ConditionGroup>
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionGroup Enabled="true" Grouping="Or">
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          </ConditionGroup>
-                          <ConditionGroup Enabled="true" Grouping="And">
-                            <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="102.5000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          </ConditionGroup>
-                        </ConditionGroup>
-                      </ConditionGroup>
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="4" ActionType="UseTTS" TTSRouting="Triggernometry" UseTTSTextExpression="T奶扔石头" UseTTSRateExpression="2">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionGroup Enabled="true" Grouping="And">
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="126.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                      </ConditionGroup>
-                      <ConditionGroup Enabled="true" Grouping="And">
-                        <ConditionGroup Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="102.5000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                      </ConditionGroup>
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="5" ActionType="Trigger" TriggerId="78d7bbac-b00b-453c-a829-3247439a89af" TriggerText="Tip_Subtitle:TH去场外:5:0:0:main">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionGroup Enabled="true" Grouping="And">
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="126.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                      </ConditionGroup>
-                      <ConditionGroup Enabled="true" Grouping="And">
-                        <ConditionGroup Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="102.5000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                      </ConditionGroup>
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="6" ActionType="Variable" ExecutionDelayExpression="5000" VariableName="yx_Ltime" />
-                </Actions>
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${var:yx_Ltime}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                  <ConditionSingle Enabled="true" ExpressionL="${var:yx_Ltime}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                </Condition>
-              </Trigger>
-              <Trigger Enabled="true" Id="a6fc36c0-a7a8-41f7-98bb-fad99d608f68" Name="石头分散" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):BAAC:.{8}:[^:]*:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]+)" PeriodRefire="Deny" RefirePeriodExpression="5000">
-                <Actions>
-                  <Action OrderNumber="1" ActionType="NamedCallback" Description="月环外径60。外围黄色危险区。Donut可能不被PictoACT支持,改为双Circle模拟。" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;O: ${_me.id}&#xD;&#xA;t: 5 &#xD;&#xA;Scale:5 &#xD;&#xA;Color: 1,1, 1" />
-                </Actions>
-              </Trigger>
-              <Trigger Enabled="true" Id="16c7b51e-c629-4ab0-93c6-2e2ace24823b" Name="睡眠魅惑个人播报" RegularExpression="^yx_睡眠魅惑连线:(?&lt;type&gt;魅惑|睡眠):(?&lt;tid&gt;1.{7})" Description="功能：只在当前玩家是睡眠/魅惑连线目标时播报个人 TTS；原因：复刻 jyx.xml 的 3. 连线播报方式。">
-                <Actions>
-                  <Action OrderNumber="1" ActionType="LogMessage" Description="功能：向通用 tts 日志链写入睡眠/魅惑个人行动提示；原因：点名自己时直接播去场内或场外。" DescriptionOverride="True" LogMessageText="tts:0:${if: ${type} == 魅惑 ? 魅惑去场外外 : 睡眠去场内内 }" LogProcess="True">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                    </Condition>
-                  </Action>
-                </Actions>
-              </Trigger>
-              <Trigger Enabled="true" Id="8fc3a673-6115-4b4f-9901-d16f747fdab3" Name="睡眠魅惑连线判断" RegularExpression="^.{14} (?:\w+ )10F:(?&lt;ID&gt;.+?):[^:]*:[^:]*:[^:]*:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*)" Sequential="True" Description="功能：在第二次背对正对后，用连线源实体的 10F 坐标和目标职能判断 DPS/TH 场内外。">
-                <Actions>
-                  <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="2000" Description="功能：等待 23 连线记录和 10F 坐标稳定；原因：同帧日志下发时先延迟再判断更稳。" DescriptionOverride="True" />
-                  <Action OrderNumber="2" ActionType="UseTTS" Description="功能：播报 DPS 场外、TH 场内；条件为连线目标职能和源实体 x 坐标组合匹配。" DescriptionOverride="True" TTSRouting="Triggernometry" UseTTSTextExpression="DPS场外外 T奶场内内" UseTTSRateExpression="2">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionGroup Enabled="true" Grouping="And">
-                        <ConditionGroup Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="95.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                      </ConditionGroup>
-                      <ConditionGroup Enabled="true" Grouping="And">
-                        <ConditionGroup Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="107.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                      </ConditionGroup>
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="3" ActionType="Trigger" Description="功能：同步显示 DPS 场外、TH 场内字幕；和上一条 TTS 使用同一判断条件。" DescriptionOverride="True" TriggerId="4d798ac1-1a5f-4027-bde6-fbc896defd0c" TriggerText="Tip_Subtitle:DPS去场外_TH去场内:5:0:0:main">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionGroup Enabled="true" Grouping="Or">
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionGroup Enabled="true" Grouping="Or">
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          </ConditionGroup>
-                          <ConditionGroup Enabled="true" Grouping="And">
-                            <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="95.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          </ConditionGroup>
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionGroup Enabled="true" Grouping="Or">
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          </ConditionGroup>
-                          <ConditionGroup Enabled="true" Grouping="And">
-                            <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="107.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                            <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          </ConditionGroup>
-                        </ConditionGroup>
-                      </ConditionGroup>
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="4" ActionType="UseTTS" Description="功能：播报 TH 场外、DPS 场内；条件为另一组连线目标职能和源实体 x 坐标组合匹配。" DescriptionOverride="True" TTSRouting="Triggernometry" UseTTSTextExpression="T奶场外外 DPS场内内" UseTTSRateExpression="2">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionGroup Enabled="true" Grouping="And">
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="95.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                      </ConditionGroup>
-                      <ConditionGroup Enabled="true" Grouping="And">
-                        <ConditionGroup Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="107.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                      </ConditionGroup>
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="5" ActionType="Trigger" Description="功能：同步显示 TH 场外、DPS 场内字幕；和上一条 TTS 使用同一判断条件。" DescriptionOverride="True" TriggerId="4d798ac1-1a5f-4027-bde6-fbc896defd0c" TriggerText="Tip_Subtitle:TH去场外_DPS去场内:5:0:0:main">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionGroup Enabled="true" Grouping="And">
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="95.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                      </ConditionGroup>
-                      <ConditionGroup Enabled="true" Grouping="And">
-                        <ConditionGroup Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                        <ConditionGroup Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="107.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                        </ConditionGroup>
-                      </ConditionGroup>
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="6" ActionType="Variable" ExecutionDelayExpression="5000" Description="功能：延迟清理睡眠魅惑阶段计数；原因：避免本轮后续 10F 重复触发。" DescriptionOverride="True" VariableName="yx_Stime" />
-                  <Action OrderNumber="7" ActionType="Variable" Description="功能：清理本轮连线源实体 ID；原因：防止下一轮误用旧的 10F 对齐目标。" DescriptionOverride="True" VariableName="yx_石线" />
-                  <Action OrderNumber="8" ActionType="Variable" Description="功能：清理本轮连线目标玩家名；原因：防止下一轮误用旧的 D/TH 职能判断。" DescriptionOverride="True" VariableName="yx_人线" />
-                </Actions>
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${var:yx_Stime}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                </Condition>
-              </Trigger>
-              <Trigger Enabled="true" Id="45356c5e-8674-4234-86f4-4bafb633b2e3" Name="睡眠魅惑连线转录" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;002D)" Description="功能：参考 jyx.xml，把睡眠/魅惑阶段的 002D 连线按源实体 z 坐标转成内部个人点名事件；原因：避免依赖连线获取的阶段启停和 10F 坐标链。">
-                <Actions>
-                  <Action OrderNumber="1" ActionType="Placeholder" Description="功能：记录 z 坐标映射规则；27 为魅惑，8.5 为睡眠，其它 002D 连线不在本触发器输出范围内。" DescriptionOverride="True" />
-                  <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" Description="功能：仅在源实体 z=27 或 8.5 时生成 yx_睡眠魅惑连线 内部事件；原因：下游只需要知道类型和目标玩家 ID。" DescriptionOverride="True" LogMessageText="yx_睡眠魅惑连线:${?d: 27=魅惑, 8.5=睡眠 [${n: round(${_entity[${sid}].z}, 1)}]}:${tid}" LogProcess="True" LogProcessACT="True">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${n: round(${_entity[${sid}].z}, 1)}" ExpressionTypeL="Numeric" ExpressionR="27" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                      <ConditionSingle Enabled="true" ExpressionL="${n: round(${_entity[${sid}].z}, 1)}" ExpressionTypeL="Numeric" ExpressionR="8.5" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                    </Condition>
-                  </Action>
                 </Actions>
               </Trigger>
             </Triggers>
@@ -1489,9 +1195,344 @@
               </Trigger>
             </Triggers>
           </Folder>
+          <Folder Id="61fb2dda-fb01-4ffa-9912-fa7724c8a052" Enabled="true" Name="连线">
+            <Triggers>
+              <Trigger Enabled="true" Id="a76b271f-202d-43df-9427-946e15164258" Name="连线获取" RegularExpression="^.{15}\S+ 23:(?&lt;ID1&gt;.{8}):(?&lt;TCname1&gt;[^:]*):(?&lt;ID2&gt;.{8}):(?&lt;TCname2&gt;[^:]*):[^:]*:[^:]*:(?&lt;ID3&gt;[^:]*)" PeriodRefire="Deny" RefirePeriodExpression="5000">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="yx_石线" VariableExpression="${ID1}" />
+                  <Action OrderNumber="2" ActionType="Variable" VariableOp="SetString" VariableName="yx_人线" VariableExpression="${TCname2}" />
+                </Actions>
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:yx_Ltime}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                  <ConditionSingle Enabled="true" ExpressionL="${var:yx_Stime}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Id="2c203ddb-6978-4f11-b8e6-3b5767b21928" Name="线计数" RegularExpression="^.{14} (?:\w+ )14:(?&lt;BossID&gt;[^:]*):[^:]*:(BAA6)">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="500" />
+                  <Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="yx_Ltime" VariableExpression="${var:yx_Ltime}+1" />
+                </Actions>
+              </Trigger>
+              <Trigger Enabled="true" Id="b7c8a895-7ffa-4537-a216-2c406235b532" Name="泥圈石头连线判断" RegularExpression="^.{14} (?:\w+ )10F:(?&lt;ID&gt;.+?):[^:]*:[^:]*:[^:]*:(?&lt;x&gt;(126.0000|102.5000)):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*)" Sequential="True">
+                <Actions>
+                  <Action OrderNumber="1" Enabled="False" ActionType="Placeholder" ExecutionDelayExpression="3000" />
+                  <Action OrderNumber="2" ActionType="UseTTS" TTSRouting="Triggernometry" UseTTSTextExpression="DPS扔石头" UseTTSRateExpression="2">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionGroup Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="126.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                      </ConditionGroup>
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionGroup Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="102.5000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                      </ConditionGroup>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="3" ActionType="Trigger" TriggerId="78d7bbac-b00b-453c-a829-3247439a89af" TriggerText="Tip_Subtitle:DPS去场外:5:0:0:main">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionGroup Enabled="true" Grouping="Or">
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionGroup Enabled="true" Grouping="Or">
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          </ConditionGroup>
+                          <ConditionGroup Enabled="true" Grouping="And">
+                            <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="126.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          </ConditionGroup>
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionGroup Enabled="true" Grouping="Or">
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          </ConditionGroup>
+                          <ConditionGroup Enabled="true" Grouping="And">
+                            <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="102.5000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          </ConditionGroup>
+                        </ConditionGroup>
+                      </ConditionGroup>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="4" ActionType="UseTTS" TTSRouting="Triggernometry" UseTTSTextExpression="T奶扔石头" UseTTSRateExpression="2">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="126.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                      </ConditionGroup>
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionGroup Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="102.5000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                      </ConditionGroup>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="5" ActionType="Trigger" TriggerId="78d7bbac-b00b-453c-a829-3247439a89af" TriggerText="Tip_Subtitle:TH去场外:5:0:0:main">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="126.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                      </ConditionGroup>
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionGroup Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="102.5000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                      </ConditionGroup>
+                    </Condition>
+                  </Action>
+                </Actions>
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:yx_Ltime}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                  <ConditionSingle Enabled="true" ExpressionL="${var:yx_Ltime}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Id="a23c4436-54b9-4dc0-b3fc-5df6a66c7a98" Name="睡眠魅惑连线判断" RegularExpression="^.{14} (?:\w+ )10F:(?&lt;ID&gt;.+?):[^:]*:[^:]*:[^:]*:(?&lt;x&gt;(107.0000|95.0000)):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*)" Sequential="True">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="2000" />
+                  <Action OrderNumber="2" ActionType="UseTTS" TTSRouting="Triggernometry" UseTTSTextExpression="DPS去场外 TH去场内" UseTTSRateExpression="2">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionGroup Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="95.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                      </ConditionGroup>
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionGroup Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="107.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                      </ConditionGroup>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="3" ActionType="Trigger" TriggerId="78d7bbac-b00b-453c-a829-3247439a89af" TriggerText="Tip_Subtitle:DPS去场外_TH去场内:5:0:0:main">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionGroup Enabled="true" Grouping="Or">
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionGroup Enabled="true" Grouping="Or">
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          </ConditionGroup>
+                          <ConditionGroup Enabled="true" Grouping="And">
+                            <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="95.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          </ConditionGroup>
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionGroup Enabled="true" Grouping="Or">
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          </ConditionGroup>
+                          <ConditionGroup Enabled="true" Grouping="And">
+                            <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="107.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          </ConditionGroup>
+                        </ConditionGroup>
+                      </ConditionGroup>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="4" ActionType="UseTTS" TTSRouting="Triggernometry" UseTTSTextExpression="TH去场外 DPS去场内" UseTTSRateExpression="2">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="95.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                      </ConditionGroup>
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionGroup Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="107.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                      </ConditionGroup>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="5" ActionType="Trigger" TriggerId="78d7bbac-b00b-453c-a829-3247439a89af" TriggerText="Tip_Subtitle:TH去场外_DPS去场内:5:0:0:main">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="95.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:h2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:st_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:mt_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                      </ConditionGroup>
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionGroup Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d2_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_人线}" ExpressionTypeL="String" ExpressionR="${var:d3_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                        <ConditionGroup Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="107.0000" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                          <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${var:yx_石线}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </ConditionGroup>
+                      </ConditionGroup>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="6" ActionType="Variable" ExecutionDelayExpression="5000" VariableName="yx_Stime" />
+                </Actions>
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:yx_Stime}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Id="6f74546c-3663-4509-9f15-42b4c6595c90" Name="石头分散" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):BAAC:.{8}:[^:]*:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]+)" PeriodRefire="Deny" RefirePeriodExpression="5000">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="NamedCallback" Description="月环外径60。外围黄色危险区。Donut可能不被PictoACT支持,改为双Circle模拟。" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;O: ${_me.id}&#xD;&#xA;t: 5 &#xD;&#xA;Scale:5 &#xD;&#xA;Color: 1,1, 1" />
+                </Actions>
+              </Trigger>
+              <Trigger Enabled="false" Id="a02d705c-daf6-43ac-81b6-d611c746e779" Name="Debug Log 2026-06-08 01:15" Source="None">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[23:51:24.168] Tether 23:4000CDF5:众神之像:100472EA:桑克瑞德:0000:0000:002D:100472EA:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="[23:51:24.168] Tether 23:4000CDF4:众神之像:1001874A:于里昂热:0000:0000:002D:1001874A:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[23:51:24.168] Tether 23:4000CDF3:众神之像:1005F31F:古·拉哈·提亚:0000:0000:002D:1005F31F:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="[23:51:24.168] Tether 23:4000CDF2:众神之像:10069C57:阿尔菲诺:0000:0000:002D:10069C57:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="2000" />
+                  <Action OrderNumber="6" ActionType="LogMessage" LogMessageText="[23:51:35.749] StartsCasting 14:4000CDF6:凯夫卡:BAA6:连环环陷阱:4000CDF6:凯夫卡:2.700:99.99:99.99:0.00:3.13" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="2900" />
+                  <Action OrderNumber="8" ActionType="LogMessage" LogMessageText="[23:52:15.211] Tether 23:4000CDF5:众神之像:100472EA:桑克瑞德:0000:0000:002D:100472EA:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="9" ActionType="LogMessage" LogMessageText="[23:52:15.211] 271 10F:4000CDF5:0.0000:00:00:126.0000:41.5000:7.0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="10" ActionType="LogMessage" LogMessageText="[23:52:15.211] 271 10F:4000CDF4:0.0000:00:00:102.5000:27.0000:22.5000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="11" ActionType="LogMessage" LogMessageText="[23:52:15.211] Tether 23:4000CDF4:众神之像:1001923B:雅·修特拉:0000:0000:002D:1001923B:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="12" ActionType="LogMessage" LogMessageText="[23:52:15.211] 271 10F:4000CDF3:0.0000:00:00:102.5000:27.0000:22.5000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="13" ActionType="LogMessage" LogMessageText="[23:52:15.211] Tether 23:4000CDF3:众神之像:${_me.id}:${_me}:0000:0000:002D:${_me.id}:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="14" ActionType="LogMessage" LogMessageText="[23:52:15.211] 271 10F:4000CDF2:0.0000:00:00:102.5000:27.0000:22.5000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="15" ActionType="LogMessage" LogMessageText="[23:52:15.211] Tether 23:4000CDF2:众神之像:10030355:阿莉塞:0000:0000:002D:10030355:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="16" ActionType="LogMessage" LogMessageText="[23:52:15.211] 271 10F:4000CDF1:0.0000:00:00:102.5000:27.0000:22.5000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="17" ActionType="LogMessage" LogMessageText="[23:52:15.211] Tether 23:4000CDF1:众神之像:1001C693:埃斯蒂尼安:0000:0000:002D:1001C693:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="18" ActionType="LogMessage" LogMessageText="[23:52:15.211] 271 10F:4000CDF0:0.0000:00:00:126.0000:41.5000:7.0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="19" ActionType="LogMessage" LogMessageText="[23:52:15.211] Tether 23:4000CDF0:众神之像:1001874A:于里昂热:0000:0000:002D:1001874A:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="20" ActionType="LogMessage" LogMessageText="[23:52:15.211] Tether 23:4000CDEF:众神之像:1005F31F:古·拉哈·提亚:0000:0000:002D:1005F31F:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="21" ActionType="LogMessage" LogMessageText="[23:52:15.211] 271 10F:4000CDEF:0.0000:00:00:126.0000:41.5000:7.0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="22" ActionType="LogMessage" LogMessageText="[23:52:15.211] 271 10F:4000CDEE:0.0000:00:00:126.0000:41.5000:7.0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="23" ActionType="LogMessage" LogMessageText="[23:52:15.211] Tether 23:4000CDEE:众神之像:10069C57:阿尔菲诺:0000:0000:002D:10069C57:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="24" ActionType="Placeholder" ExecutionDelayExpression="1.38 * 1000" />
+                  <Action OrderNumber="25" ActionType="LogMessage" LogMessageText="[23:52:16.587] StartsCasting 14:4000CDF6:凯夫卡:BA95:扩大大冰封:4000CDF6:凯夫卡:4.700:99.99:99.99:0.00:3.13" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="26" ActionType="Placeholder" ExecutionDelayExpression="5 * 1000" />
+                  <Action OrderNumber="27" ActionType="LogMessage" LogMessageText="[23:52:31.649] 271 10F:4000CDF5:0.0000:00:00:102.5000:27.0000:22.5000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="28" ActionType="LogMessage" LogMessageText="[23:52:31.649] Tether 23:4000CDF5:众神之像:1001923B:雅·修特拉:0000:0000:002D:1001923B:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="29" ActionType="LogMessage" LogMessageText="[23:52:31.649] 271 10F:4000CDF4:0.0000:00:00:126.0000:41.5000:7.0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="30" ActionType="LogMessage" LogMessageText="[23:52:31.649] Tether 23:4000CDF4:众神之像:1001874A:于里昂热:0000:0000:002D:1001874A:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="31" ActionType="LogMessage" LogMessageText="[23:52:31.649] Tether 23:4000CDF3:众神之像:10030355:阿莉塞:0000:0000:002D:10030355:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="32" ActionType="LogMessage" LogMessageText="[23:52:31.649] 271 10F:4000CDF3:0.0000:00:00:102.5000:27.0000:22.5000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="33" ActionType="LogMessage" LogMessageText="[23:52:31.649] Tether 23:4000CDF2:众神之像:100472EA:桑克瑞德:0000:0000:002D:100472EA:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="34" ActionType="LogMessage" LogMessageText="[23:52:31.649] 271 10F:4000CDF2:0.0000:00:00:126.0000:41.5000:7.0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="35" ActionType="LogMessage" LogMessageText="[23:52:31.649] Tether 23:4000CDF1:众神之像:${_me.id}:${_me}:0000:0000:002D:${_me.id}:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="36" ActionType="LogMessage" LogMessageText="[23:52:31.649] Tether 23:4000CDF0:众神之像:1005F31F:古·拉哈·提亚:0000:0000:002D:1005F31F:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="37" ActionType="LogMessage" LogMessageText="[23:52:31.649] 271 10F:4000CDF1:0.0000:00:00:102.5000:27.0000:22.5000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="38" ActionType="LogMessage" LogMessageText="[23:52:31.649] Tether 23:4000CDEF:众神之像:10069C57:阿尔菲诺:0000:0000:002D:10069C57:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="39" ActionType="LogMessage" LogMessageText="[23:52:31.649] 271 10F:4000CDF0:0.0000:00:00:126.0000:41.5000:7.0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="40" ActionType="LogMessage" LogMessageText="[23:52:31.649] Tether 23:4000CDEE:众神之像:1001C693:埃斯蒂尼安:0000:0000:002D:1001C693:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="41" ActionType="LogMessage" LogMessageText="[23:52:31.649] 271 10F:4000CDEF:0.0000:00:00:126.0000:41.5000:7.0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="42" ActionType="LogMessage" LogMessageText="[23:52:31.649] 271 10F:4000CDEE:0.0000:00:00:102.5000:27.0000:22.5000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="43" ActionType="LogMessage" LogMessageText="[21:40:05.350] StartsCasting 14:40009E27:凯夫卡:C622:制裁之光:40009E27:凯夫卡:4.700:99.99:99.99:0.00:3.11&#xD;&#xA;" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="44" ActionType="Placeholder" ExecutionDelayExpression="6 * 1000" />
+                  <Action OrderNumber="45" ActionType="LogMessage" LogMessageText="[23:53:38.765] Tether 23:4000CDF5:众神之像:1001C693:埃斯蒂尼安:0000:0000:002D:1001C693:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="46" ActionType="LogMessage" LogMessageText="[23:53:38.765] Tether 23:4000CDF4:众神之像:10030355:阿莉塞:0000:0000:002D:10030355:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="47" ActionType="LogMessage" LogMessageText="[23:53:38.765] Tether 23:4000CDF3:众神之像:${_me.id}:${_me}:0000:0000:002D:${_me.id}:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="48" ActionType="LogMessage" LogMessageText="[23:53:38.765] Tether 23:4000CDF2:众神之像:1001923B:雅·修特拉:0000:0000:002D:1001923B:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="49" ActionType="LogMessage" LogMessageText="[23:53:38.765] Tether 23:4000CDF1:众神之像:10069C57:阿尔菲诺:0000:0000:002D:10069C57:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="50" ActionType="LogMessage" LogMessageText="[23:53:38.765] Tether 23:4000CDF0:众神之像:1001874A:于里昂热:0000:0000:002D:1001874A:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="51" ActionType="LogMessage" LogMessageText="[23:53:38.765] Tether 23:4000CDEF:众神之像:100472EA:桑克瑞德:0000:0000:002D:100472EA:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="52" ActionType="LogMessage" LogMessageText="[23:53:38.765] Tether 23:4000CDEE:众神之像:1005F31F:古·拉哈·提亚:0000:0000:002D:1005F31F:000F:0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="53" ActionType="LogMessage" LogMessageText="[23:53:38.765] 271 10F:4000CDF5:0.0000:00:00:107.0000:43.0000:8.5000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="54" ActionType="LogMessage" LogMessageText="[23:53:38.765] 271 10F:4000CDF4:0.0000:00:00:107.0000:43.0000:8.5000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="55" ActionType="LogMessage" LogMessageText="[23:53:38.765] 271 10F:4000CDF3:0.0000:00:00:107.0000:43.0000:8.5000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="56" ActionType="LogMessage" LogMessageText="[23:53:38.765] 271 10F:4000CDF2:0.0000:00:00:107.0000:43.0000:8.5000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="57" ActionType="LogMessage" LogMessageText="[23:53:38.765] 271 10F:4000CDF1:0.0000:00:00:95.0000:25.0000:27.0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="58" ActionType="LogMessage" LogMessageText="[23:53:38.765] 271 10F:4000CDF0:0.0000:00:00:95.0000:25.0000:27.0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="59" ActionType="LogMessage" LogMessageText="[23:53:38.765] 271 10F:4000CDEF:0.0000:00:00:95.0000:25.0000:27.0000" LogProcess="True" LogProcessACT="True" />
+                  <Action OrderNumber="60" ActionType="LogMessage" LogMessageText="[23:53:38.765] 271 10F:4000CDEE:0.0000:00:00:95.0000:25.0000:27.0000" LogProcess="True" LogProcessACT="True" />
+                </Actions>
+              </Trigger>
+            </Triggers>
+          </Folder>
         </Folders>
         <Triggers>
-          <Trigger Enabled="true" Id="013f7073-e111-4b68-918c-192c213d5b4d" Name="AOE" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(BAA8|BABB|BABC|BABD):" PeriodRefire="Deny" RefirePeriodExpression="100">
+          <Trigger Enabled="true" Id="013f7073-e111-4b68-918c-192c213d5b4d" Name="AOE" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(BAA8|BABB|BABC|BABD|C622):" PeriodRefire="Deny" RefirePeriodExpression="100">
             <Actions>
               <Action OrderNumber="1" ActionType="UseTTS" TTSRouting="Triggernometry" UseTTSTextExpression="AOE" UseTTSRateExpression="2">
                 <Condition Enabled="false" Grouping="Or">
@@ -1503,6 +1544,8 @@
                   <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                 </Condition>
               </Action>
+              <Action OrderNumber="3" Enabled="False" ActionType="Variable" VariableOp="SetString" VariableName="yx_石线" VariableExpression="${ID1}" />
+              <Action OrderNumber="4" Enabled="False" ActionType="Variable" VariableOp="SetString" VariableName="yx_人线" VariableExpression="${TCname2}" />
             </Actions>
           </Trigger>
           <Trigger Enabled="true" Id="b7880ab5-52d7-4b44-a6a7-156d1477dc44" Name="死刑" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(BAA9|C403):" PeriodRefire="Deny" RefirePeriodExpression="100">
@@ -1632,6 +1675,7 @@
                   </ConditionGroup>
                 </Condition>
               </Action>
+              <Action OrderNumber="5" ActionType="Trigger" TriggerOp="EnableTrigger" TriggerId="a76b271f-202d-43df-9427-946e15164258" />
             </Actions>
           </Trigger>
           <Trigger Enabled="true" Id="1d4d2279-1060-4933-9421-e3ac71bfb412" Name="神像" RegularExpression="^.{14} (?:\w+ )14:(?&lt;BossID&gt;[^:]*):[^:]*:BCF2">
@@ -1748,6 +1792,27 @@
                   <Action OrderNumber="4" ActionType="Variable" VariableOp="UnsetRegex" VariableName="自己_(火|水)" VariableExpression="1">
                     <Condition Enabled="false" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${var:d4_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                  </Action>
+                </Actions>
+              </Trigger>
+              <Trigger Enabled="true" Id="c432695c-f133-4914-87cd-22b4338d9afe" Name="决战" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(C2E2):" PeriodRefire="Deny" RefirePeriodExpression="100" Sequential="True">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="UseTTS" TTSRouting="Triggernometry" UseTTSTextExpression="防火墙站位准备" UseTTSRateExpression="2" />
+                  <Action OrderNumber="2" ActionType="Trigger" TriggerId="78d7bbac-b00b-453c-a829-3247439a89af" TriggerText="Tip_Subtitle:防火墙站位准备:5:0:0:main" />
+                  <Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/p 防火墙站位准备&lt;se.1&gt;&lt;se.1&gt;&lt;se.1&gt;">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="4" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/p      卡奥斯                 艾克斯迪斯">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="5" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/p MT H1 D1 D2      ST H2 D3 D4">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                     </Condition>
                   </Action>
                 </Actions>
@@ -2882,7 +2947,7 @@
             <Folders>
               <Folder Id="d9d18d90-88ee-44f2-9f46-38b31bfdff0c" Enabled="true" Name="获取">
                 <Folders>
-                  <Folder Id="9348d898-1a7b-4b24-99ca-fbde95ae6caa" Enabled="true" Name="列表获取">
+                  <Folder Id="9348d898-1a7b-4b24-99ca-fbde95ae6caa" Enabled="false" Name="列表获取">
                     <Triggers>
                       <Trigger Enabled="true" Id="2ddaeb80-9d1d-4bcc-88f8-408de21e05eb" Name="大圈列表" RegularExpression="^.{14} (?:\w+ )1B:.{8}:(?&lt;name&gt;.+?):[^:]*:[^:]*:02CC" PeriodRefire="Deny" RefirePeriodExpression="3000" Sequential="True">
                         <Actions>
@@ -3171,7 +3236,7 @@
                   </Folder>
                 </Folders>
               </Folder>
-              <Folder Id="c17933e1-e4f1-4be5-8e8e-81dee111bc00" Enabled="true" Name="第一轮">
+              <Folder Id="c17933e1-e4f1-4be5-8e8e-81dee111bc00" Enabled="false" Name="第一轮">
                 <Triggers>
                   <Trigger Enabled="true" Id="e82922e0-1369-4f4b-ba16-bf24d0c1ea9a" Name="第一次标记" RegularExpression="^.{14} (?:\w+ )1B:.{8}:(?&lt;name&gt;[^:]*):0000:0000:02C(?&lt;id&gt;[BCD]):" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True" Description="F9火  11F雷">
                     <Actions>
@@ -3243,7 +3308,7 @@
                       </Action>
                       <Action OrderNumber="19" ActionType="Folder" FolderOp="DisableFolder" FolderId="c17933e1-e4f1-4be5-8e8e-81dee111bc00" TriggerOp="DisableTrigger" TriggerId="e82922e0-1369-4f4b-ba16-bf24d0c1ea9a" />
                       <Action OrderNumber="20" ActionType="Folder" FolderOp="DisableFolder" FolderId="9348d898-1a7b-4b24-99ca-fbde95ae6caa" TriggerOp="DisableTrigger" TriggerId="e82922e0-1369-4f4b-ba16-bf24d0c1ea9a" />
-                      <Action OrderNumber="21" ActionType="Trigger" ExecutionDelayExpression="4500" TriggerId="065abfcc-168b-40da-92c4-6d981b428f37" TriggerForce="regexp">
+                      <Action OrderNumber="21" ActionType="Trigger" ExecutionDelayExpression="4800" TriggerId="065abfcc-168b-40da-92c4-6d981b428f37" TriggerForce="regexp">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                         </Condition>
@@ -3375,7 +3440,7 @@
                       </Action>
                       <Action OrderNumber="12" ActionType="Folder" FolderOp="DisableFolder" FolderId="c17933e1-e4f1-4be5-8e8e-81dee111bc00" TriggerOp="DisableTrigger" TriggerId="6ab18f9f-184a-43d5-953c-da73a21d4b79" />
                       <Action OrderNumber="13" ActionType="Folder" FolderOp="DisableFolder" FolderId="9348d898-1a7b-4b24-99ca-fbde95ae6caa" TriggerOp="DisableTrigger" TriggerId="6ab18f9f-184a-43d5-953c-da73a21d4b79" />
-                      <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="4500" TriggerId="065abfcc-168b-40da-92c4-6d981b428f37" TriggerForce="regexp">
+                      <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="4800" TriggerId="065abfcc-168b-40da-92c4-6d981b428f37" TriggerForce="regexp">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                         </Condition>
@@ -3450,7 +3515,7 @@
                       <ConditionSingle Enabled="true" ExpressionL="${var:指挥模式}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                     </Condition>
                   </Trigger>
-                  <Trigger Enabled="true" Id="72452c33-3a00-452f-b628-00654cf042f4" Name="列表获取" RegularExpression="一个合适的时间延迟（走到引导位置时）">
+                  <Trigger Enabled="true" Id="72452c33-3a00-452f-b628-00654cf042f4" Name="列表获取" RegularExpression="一个合适的时间延迟（走到引导位置时）" Sequential="True">
                     <Actions>
                       <Action OrderNumber="1" ActionType="ListVariable" ExecutionDelayExpression="500" JsonEndpointExpression="http://127.0.0.1:${var:鲶鱼精邮差监听端口}/command" JsonPayloadExpression="/mk attack &lt;${var:${var:d1_name}_no}&gt;" ListVariableOp="Push" ListVariableName="yx_大圈" ListVariableExpression="${var:mt_name}" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:${var:h1_name}_no}&gt;" UseTTSTextExpression="准备组内截球">
                         <Condition Enabled="true" Grouping="And">
@@ -3719,12 +3784,12 @@
                   </Trigger>
                   <Trigger Enabled="true" Id="03a58110-8b77-4b8d-bf05-780e1534d8f7" Name="偶数塔记录" RegularExpression="未来过去的14行" Sequential="True">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="ListVariable" ExecutionDelayExpression="3000" ListVariableOp="UnsetRegex" ListVariableName="yx_偶数塔" VariableOp="UnsetRegex" VariableName=".{2}_(分摊|大圈|扇形)" VariableExpression="0">
+                      <Action OrderNumber="1" ActionType="ListVariable" ExecutionDelayExpression="5000" ListVariableOp="UnsetRegex" ListVariableName="yx_偶数塔" VariableOp="UnsetRegex" VariableName=".{2}_(分摊|大圈|扇形)" VariableExpression="0">
                         <Condition Enabled="false" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:d1_name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                         </Condition>
                       </Action>
-                      <Action OrderNumber="2" ActionType="LogMessage" ExecutionDelayExpression="7500" LogMessageText="一个合适的时间延迟（走到引导位置时）" LogProcess="True" />
+                      <Action OrderNumber="2" ActionType="LogMessage" ExecutionDelayExpression="5500" LogMessageText="一个合适的时间延迟（走到引导位置时）" LogProcess="True" />
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="787a0c1f-7637-45df-b8cf-a6f6e2574dc4" Name="偶数塔播报(灰9)" RegularExpression="未来过去的14行" Sequential="True">
@@ -3920,20 +3985,6 @@
                   <Action OrderNumber="8" ActionType="Trigger" TriggerId="f23437a9-05e1-4451-8bf7-da5ad6306104" TriggerText="Tip_Subtitle:塔中间引导:5:0:0:main">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="BAD3" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                    </Condition>
-                  </Action>
-                </Actions>
-              </Trigger>
-              <Trigger Enabled="false" Id="b9231ddd-8f9a-4570-8ffc-a17f8f30beaa" Name="消灭之脚画图" RegularExpression="^.{15}\S+ 107:(?&lt;id&gt;.{8}):(BADC|BADD):(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]*)">
-                <Actions>
-                  <Action OrderNumber="1" ActionType="NamedCallback" Description="月环外径60。外围黄色危险区。Donut可能不被PictoACT支持,改为双Circle模拟。" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan100&#xD;&#xA;Tag: 新月&#xD;&#xA;t: 6 &#xD;&#xA;Pos: ${x}, ${y}, ${z} &#xD;&#xA;Angle:${h}&#xD;&#xA;Scale: 60, 60, 10">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${var:yx_过来}" ExpressionTypeL="String" ExpressionR="过去" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="2" ActionType="NamedCallback" Description="月环外径60。外围黄色危险区。Donut可能不被PictoACT支持,改为双Circle模拟。" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan100&#xD;&#xA;Tag: 新月&#xD;&#xA;t: 6 &#xD;&#xA;Pos: ${x}, ${y}, ${z} &#xD;&#xA;Angle:${h}&#xD;&#xA;Scale: 60, 60, 10">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${var:yx_过来}" ExpressionTypeL="String" ExpressionR="未来" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                     </Condition>
                   </Action>
                 </Actions>
@@ -4136,7 +4187,7 @@
                       <Action OrderNumber="8" ActionType="LogMessage" Description="攻击6普通小白圈：右塔外，随攻击5靠近右塔但仍保持贴近站位并参与攻击7分摊。" LogMessageText="_yx_灰9塔占位_安全区_普通点:dir8:${dir8}:src:1.50:-2.11" LogProcess="True" />
                       <Action OrderNumber="9" ActionType="LogMessage" Description="攻击7分摊范围：右塔内分摊中心，沿右塔中心向外侧微调并画半径5分摊AOE。" LogMessageText="_yx_灰9塔占位_安全区_分摊:dir8:${dir8}:src:3.95:-4.05" LogProcess="True" />
                       <Action OrderNumber="10" ActionType="LogMessage" Description="攻击8钢铁点：右塔内下侧，向塔心回收并保持距攻击7约6.01米。" LogMessageText="_yx_灰9塔占位_安全区_钢铁:dir8:${dir8}:src:8.25:-8.25" LogProcess="True" />
-                      <Action OrderNumber="11" ActionType="Placeholder" ExecutionDelayExpression="300" />
+                      <Action OrderNumber="11" ActionType="Placeholder" ExecutionDelayExpression="800" />
                       <Action OrderNumber="12" ActionType="LogMessage" Description="功能：当前玩家是奇数轮扇形1时，在攻击1点生成指向自己线事件；作用：按用户指定变量映射把个人职责落到对应攻击位置。" LogMessageText="_yx_灰9塔占位_安全区_指向自己:dir8:${dir8}:src:-1.85:-1.85" LogProcess="True">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${lvar:yx_扇形[1]}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
@@ -4309,7 +4360,7 @@
                       <Action OrderNumber="14" ActionType="LogMessage" Description="攻击8钢铁范围：半径5；攻击7距离攻击8约7.07米。" LogMessageText="_yx_灰9偶数塔占位_安全区_钢铁:dir8:${dir8}:src:8.00:-8.00" LogProcess="True" />
                       <Action OrderNumber="15" ActionType="LogMessage" Description="左塔扇形引导：攻击3指向塔外攻击2，攻击2离攻击3约5.28米且比6米上方点更近。" LogMessageText="_yx_灰9偶数塔占位_安全区_扇形:dir8:${dir8}:src:-3.00:-3.00:tgt:-8.20:-2.10" LogProcess="True" />
                       <Action OrderNumber="16" ActionType="LogMessage" Description="右塔扇形引导：攻击7指向塔外攻击6，攻击6离攻击7约5.28米且比6米上方点更近。" LogMessageText="_yx_灰9偶数塔占位_安全区_扇形:dir8:${dir8}:src:3.00:-3.00:tgt:8.20:-2.10" LogProcess="True" />
-                      <Action OrderNumber="17" ActionType="Placeholder" ExecutionDelayExpression="300" />
+                      <Action OrderNumber="17" ActionType="Placeholder" ExecutionDelayExpression="800" />
                       <Action OrderNumber="18" ActionType="LogMessage" Description="功能：当前玩家是偶数塔5号变量时，在攻击1点生成指向自己线事件；作用：按用户指定变量映射把个人职责落到修正后的攻击1位置。" LogMessageText="_yx_灰9偶数塔占位_安全区_指向自己:dir8:${dir8}:src:-3.00:3.00" LogProcess="True">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${lvar:yx_偶数塔[5]}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
@@ -4388,103 +4439,28 @@
                   </Trigger>
                 </Triggers>
               </Folder>
-              <Folder Id="8cf060f7-9d36-4073-803a-0e369141c904" Enabled="true" Name="塔消亡清图">
-                <Triggers>
-                  <Trigger Enabled="true" Id="3608fb94-8f3d-4860-a966-50a92ab2ca45" Name="清理 - 进战团灭" RegularExpression="^.{15}\S+ 104:.:1:.:1|^.{14} (?:\w+ )21:.{8}:400000(03|1[026]|11)" PeriodRefire="Deny" RefirePeriodExpression="1000" Sequential="True" Description="进战或团灭时关闭灰9塔消亡监听并清理奇偶塔占位图，避免上一把残留影响下一把。">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="Variable" Description="功能：清理塔消亡清图普通变量；作用：重置启用标记和临时状态。" DescriptionOverride="True" VariableOp="UnsetRegex" VariableName="^yx_灰9塔消亡清图" />
-                      <Action OrderNumber="2" ActionType="ListVariable" Description="功能：清理已登记的9020塔实体ID；作用：避免上一把塔ID误触发本把清图。" DescriptionOverride="True" ListVariableOp="UnsetRegex" ListVariableName="^yx_灰9塔消亡清图" />
-                      <Action OrderNumber="3" ActionType="NamedCallback" Description="功能：删除灰9奇偶塔占位PictoACT标签；作用：进战/团灭时强制清除残留小白圈和个人点位高亮。" DescriptionOverride="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^yx_灰9(偶数)?塔占位" />
-                      <Action OrderNumber="4" ActionType="Variable" Description="功能：清理旧版个人刷新兼容变量；作用：避免旧版本残留变量影响后续判断。" DescriptionOverride="True" VariableOp="UnsetRegex" VariableName="^yx_灰9(偶数)?塔占位_指向自己" />
-                      <Action OrderNumber="5" ActionType="Variable" Description="功能：关闭塔消亡监听；作用：只在BABC灰9机制开始后响应101判定结束或实体消失。" DescriptionOverride="True" VariableOp="SetNumeric" VariableName="yx_灰9塔消亡清图_启用" VariableExpression="0" />
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="true" Id="e450f12e-0d21-4415-aef5-281a54a9b099" Name="启用 - BABC起始" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(BABC):" PeriodRefire="Deny" RefirePeriodExpression="100" Sequential="True" Description="BABC遗弃末世起始时启用塔消亡清图，用于灰9每轮101判定结束后立即删除奇偶占位图。">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="Variable" Description="功能：清理塔消亡清图普通变量；作用：BABC重新开始时不继承旧启用状态。" DescriptionOverride="True" VariableOp="UnsetRegex" VariableName="^yx_灰9塔消亡清图" />
-                      <Action OrderNumber="2" ActionType="ListVariable" Description="功能：清理已登记的9020塔实体ID；作用：新一轮灰9重新收集塔实体。" DescriptionOverride="True" ListVariableOp="UnsetRegex" ListVariableName="^yx_灰9塔消亡清图" />
-                      <Action OrderNumber="3" ActionType="NamedCallback" Description="功能：删除灰9奇偶塔占位PictoACT标签；作用：BABC起始前先清空旧小白圈和个人点位高亮。" DescriptionOverride="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^yx_灰9(偶数)?塔占位" />
-                      <Action OrderNumber="4" ActionType="Variable" Description="功能：清理旧版个人刷新兼容变量；作用：BABC重新开始时避免旧版本变量残留。" DescriptionOverride="True" VariableOp="UnsetRegex" VariableName="^yx_灰9(偶数)?塔占位_指向自己" />
-                      <Action OrderNumber="5" ActionType="Variable" Description="功能：打开塔消亡监听；作用：后续101判定结束可立即清除当前奇偶塔占位图，04/105实体消失作为备用。" DescriptionOverride="True" VariableOp="SetNumeric" VariableName="yx_灰9塔消亡清图_启用" VariableExpression="1" />
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="true" Id="9dda5410-4fef-44d8-88d1-060173744360" Name="登记9020塔 - 105 Add" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4[0-9A-F]{7}):.*?BNpcID:(?&lt;bnpcid&gt;(233C|9020)):" Sequential="True" Description="通过105:Add登记BNpcID=9020/233C塔实体ID，给后续105:Remove清图提供白名单。">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" Description="功能：记录本次灰9机制生成的9020塔实体ID；作用：只让已登记塔的105:Remove触发清图。" DescriptionOverride="True" ListVariableOp="Push" ListVariableName="yx_灰9塔消亡清图_塔id" ListVariableExpression="${id}">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_灰9塔消亡清图_启用}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                        </Condition>
-                      </Action>
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="true" Id="2b1fc814-48b7-455d-8f04-7d0796bbe42e" Name="清图 - 105 Remove" RegularExpression="^.{15}\S+ 105:Remove:(?&lt;id&gt;4[0-9A-F]{7})" PeriodRefire="Deny" RefirePeriodExpression="100" Sequential="True" Description="已登记的9020塔收到105:Remove时清理灰9奇偶塔占位图，防止奇数轮小白圈残留到偶数轮。">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="NamedCallback" Description="功能：删除当前灰9奇偶塔占位PictoACT标签；作用：塔消失后立即清除对应轮次小白圈。" DescriptionOverride="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^yx_灰9(偶数)?塔占位">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_灰9塔消亡清图_启用}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                          <ConditionSingle Enabled="true" ExpressionL="${l:yx_灰9塔消亡清图_塔id.contain(${id})}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="2" ActionType="Variable" Description="功能：清理旧版个人刷新兼容变量；作用：塔消失后同步清掉可能残留的旧变量。" DescriptionOverride="True" VariableOp="UnsetRegex" VariableName="^yx_灰9(偶数)?塔占位_指向自己">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_灰9塔消亡清图_启用}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                          <ConditionSingle Enabled="true" ExpressionL="${l:yx_灰9塔消亡清图_塔id.contain(${id})}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                        </Condition>
-                      </Action>
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="true" Id="c7eceef2-f275-4cfc-a71d-7a791c649d4c" Name="清图 - 04塔消失" RegularExpression="^.{14} (?:\w+ )04:(?&lt;id&gt;4[0-9A-F]{7}):.*?:9020:" PeriodRefire="Deny" RefirePeriodExpression="100" Sequential="True" Description="04 RemoveCombatant直接带BNpcID=9020时清理灰9奇偶塔占位图，作为105:Remove之外的塔消亡来源。">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="NamedCallback" Description="功能：删除当前灰9奇偶塔占位PictoACT标签；作用：塔实体消失后立即清除对应轮次小白圈。" DescriptionOverride="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^yx_灰9(偶数)?塔占位">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_灰9塔消亡清图_启用}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="2" ActionType="Variable" Description="功能：清理旧版个人刷新兼容变量；作用：04塔实体消失后同步清掉可能残留的旧变量。" DescriptionOverride="True" VariableOp="UnsetRegex" VariableName="^yx_灰9(偶数)?塔占位_指向自己">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_灰9塔消亡清图_启用}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                        </Condition>
-                      </Action>
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="true" Id="5c3cad60-393f-4f43-8851-f4985453b72b" Name="清图 - 101塔判定结束" RegularExpression="^.{14} (?:\w+ )101:[^:]*:00080004:(?&lt;slot&gt;0[1-8])" PeriodRefire="Deny" RefirePeriodExpression="500" Sequential="True" Description="实战日志中每轮塔00020001生成后约3秒会出现00080004同slot判定结束；实测该信号略早于塔视觉消失，因此延后1秒清理本轮奇偶占位图。">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="1000" Description="功能：按101的00080004塔判定结束信号延后1秒删除灰9奇偶塔占位PictoACT标签；作用：补偿实战中00080004略早的问题，让小白圈多保留约1秒后再清掉。" DescriptionOverride="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^yx_灰9(偶数)?塔占位">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_灰9塔消亡清图_启用}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="2" ActionType="Variable" Description="功能：按101判定结束清理旧版个人刷新兼容变量；作用：延后1秒清图后同步清掉可能残留的旧变量。" DescriptionOverride="True" VariableOp="UnsetRegex" VariableName="^yx_灰9(偶数)?塔占位_指向自己">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${var:yx_灰9塔消亡清图_启用}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                        </Condition>
-                      </Action>
-                    </Actions>
-                  </Trigger>
-                </Triggers>
-              </Folder>
               <Folder Id="0ce34bbc-0b81-48b0-a1f2-461a4c4b3ffd" Enabled="true" Name="前后未来脚安全点小白圈画图">
                 <Triggers>
                   <Trigger Enabled="true" Id="897cb0ae-f345-44d2-a036-36b96c111836" Name="清理 - 进战团灭" RegularExpression="^.{15}\S+ 104:.:1:.:1|^.{14} (?:\w+ )21:.{8}:400000(03|1[026]|11)" PeriodRefire="Deny" RefirePeriodExpression="1000" Sequential="True" Description="进战或团灭时清理灰9前后未来脚安全点变量和PictoACT图形，避免上一把残留。">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="Variable" Description="功能：清理本模块普通变量；作用：重置未来/过去类型和临时状态。" DescriptionOverride="True" VariableOp="UnsetRegex" VariableName="^yx_灰9前后未来脚" />
-                      <Action OrderNumber="2" ActionType="NamedCallback" Description="功能：删除本模块PictoACT标签；作用：清除安全点小白圈和个人高亮圈残留。" DescriptionOverride="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^yx_灰9前后未来脚" />
+                      <Action OrderNumber="1" ActionType="Variable" Description="功能：清理本模块普通变量；作用：重置未来/过去类型和临时状态。" VariableOp="UnsetRegex" VariableName="^yx_灰9前后未来脚" />
+                      <Action OrderNumber="2" ActionType="NamedCallback" Description="功能：删除本模块PictoACT标签；作用：清除安全点小白圈和个人高亮圈残留。" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^yx_灰9前后未来脚" />
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="0fe27348-2e0c-4ca5-8cd4-b5112a88e01c" Name="清理 - BABC起始" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(BABC):" PeriodRefire="Deny" RefirePeriodExpression="100" Sequential="True" Description="BABC遗弃末世起始时重置本模块，保证第3/5/7轮只使用本次机制内的未来/过去类型。">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="Variable" Description="功能：清理本模块普通变量；作用：BABC重新开始时不继承上一轮未来/过去类型。" DescriptionOverride="True" VariableOp="UnsetRegex" VariableName="^yx_灰9前后未来脚" />
-                      <Action OrderNumber="2" ActionType="NamedCallback" Description="功能：删除本模块PictoACT标签；作用：BABC起始前清掉旧安全点图形。" DescriptionOverride="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^yx_灰9前后未来脚" />
+                      <Action OrderNumber="1" ActionType="Variable" Description="功能：清理本模块普通变量；作用：BABC重新开始时不继承上一轮未来/过去类型。" VariableOp="UnsetRegex" VariableName="^yx_灰9前后未来脚" />
+                      <Action OrderNumber="2" ActionType="NamedCallback" Description="功能：删除本模块PictoACT标签；作用：BABC起始前清掉旧安全点图形。" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^yx_灰9前后未来脚" />
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="8c080726-5204-4beb-a9af-7c4dd5a70ab9" Name="记录未来过去终结" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(?&lt;type&gt;(BAD2|BAD3)):" Sequential="True" Description="独立记录当前前后未来脚类型；BAD2为未来，BAD3为过去，供第3/5/7轮塔出现时画安全点。">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" Description="功能：记录未来终结；作用：后续第3/5/7轮塔出现时把安全点镜像到对面。" DescriptionOverride="True" VariableOp="SetString" VariableName="yx_灰9前后未来脚_类型" VariableExpression="未来">
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" Description="功能：记录未来终结；作用：后续第3/5/7轮塔出现时把安全点镜像到对面。" VariableOp="SetString" VariableName="yx_灰9前后未来脚_类型" VariableExpression="未来">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="BAD2" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                         </Condition>
                       </Action>
-                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" Description="功能：记录过去终结；作用：后续第3/5/7轮塔出现时把安全点画在两塔下方共切线交点。" DescriptionOverride="True" VariableOp="SetString" VariableName="yx_灰9前后未来脚_类型" VariableExpression="过去">
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" Description="功能：记录过去终结；作用：后续第3/5/7轮塔出现时把安全点画在两塔下方共切线交点。" VariableOp="SetString" VariableName="yx_灰9前后未来脚_类型" VariableExpression="过去">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="BAD3" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                         </Condition>
@@ -4494,7 +4470,7 @@
                   <Trigger Enabled="true" Id="d32d1e16-456c-4fb8-9a1d-8154fe949010" Name="生成安全点 - 第3/5/7轮塔" RegularExpression="^.{15}\S+ yx_灰9塔占位:n:(?&lt;n&gt;[357]):dir8:(?&lt;dir8&gt;[0-7])" Sequential="True" Description="复用共享塔轮次事件，在第3/5/7轮塔出现后按未来/过去类型画前后脚安全引导点。">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Description="功能：标注坐标基准；作用：过去脚用Pos 0,-10.5，未来脚用Pos 0,10.5，均按O:100,100和Dir8旋转。" />
-                      <Action OrderNumber="2" ActionType="NamedCallback" Description="功能：画新安全点前删除旧安全点；作用：避免第3/5/7轮之间或Debug重放时安全点叠图。" DescriptionOverride="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^yx_灰9前后未来脚" />
+                      <Action OrderNumber="2" ActionType="NamedCallback" Description="功能：画新安全点前删除旧安全点；作用：避免第3/5/7轮之间或Debug重放时安全点叠图。" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^yx_灰9前后未来脚" />
                       <Action OrderNumber="3" ActionType="NamedCallback" Description="功能：过去脚安全点画图；作用：在两塔最下方共切线与中轴线交点画橙色小圈并叠加个人高亮圈。" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: yx_灰9前后未来脚_安全点_小白圈&#xD;&#xA;t: 10&#xD;&#xA;Omen: m0532om_don01x&#xD;&#xA;O: 100, 100&#xD;&#xA;Dir8: ${dir8}&#xD;&#xA;+X: 0&#xD;&#xA;Pos: 0, -10.5, 0.05&#xD;&#xA;Color: 5, 2, 0, 5&#xD;&#xA;---&#xD;&#xA;Tag: yx_灰9前后未来脚_安全点_个人高亮&#xD;&#xA;t: 9.5&#xD;&#xA;Omen: er_sicle_1811t&#xD;&#xA;O: 100, 100&#xD;&#xA;Dir8: ${dir8}&#xD;&#xA;+X: 0&#xD;&#xA;Pos: 0, -10.5, 0.08&#xD;&#xA;Scale: 0.8&#xD;&#xA;Color: 0, 2, 8, 1">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:yx_灰9前后未来脚_类型}" ExpressionTypeL="String" ExpressionR="过去" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
@@ -4509,14 +4485,14 @@
                   </Trigger>
                   <Trigger Enabled="false" Id="78af306c-e75d-40d6-93da-981756af54ef" Name="Debug - 前后未来脚安全点重放" RegularExpression="^.{14} (?:\w+ )00:0038::yx_灰9前后未来脚 debug" Sequential="True" Description="默认关闭；手动/e yx_灰9前后未来脚 debug后，模拟过去/未来类型和第3/5/7轮塔事件，验证安全点画图。">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="Variable" Description="功能：Debug前清理本模块普通变量；作用：保证重放从空类型开始。" DescriptionOverride="True" VariableOp="UnsetRegex" VariableName="^yx_灰9前后未来脚" />
-                      <Action OrderNumber="2" ActionType="NamedCallback" Description="功能：Debug前删除本模块PictoACT标签；作用：便于观察本次重放输出。" DescriptionOverride="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^yx_灰9前后未来脚" />
-                      <Action OrderNumber="3" ActionType="LogMessage" Description="功能：模拟BAD3过去终结；作用：验证过去脚安全点会画在Pos 0,-10.5。" DescriptionOverride="True" LogMessageText="[21:00:00.000] Debug 14:4001F79F:凯夫卡:BAD3:过去终结:4001F79F:凯夫卡:6.100:99.99:99.99:0.00:0.00" LogProcess="True" LogProcessACT="True" />
-                      <Action OrderNumber="4" ActionType="LogMessage" ExecutionDelayExpression="100" Description="功能：模拟第3轮塔共享轮次事件；作用：触发过去脚安全点画图。" DescriptionOverride="True" LogMessageText="[21:00:00.100] Debug yx_灰9塔占位:n:3:dir8:2" LogProcess="True" LogProcessACT="True" />
-                      <Action OrderNumber="5" ActionType="LogMessage" ExecutionDelayExpression="2500" Description="功能：模拟BAD2未来终结；作用：验证未来脚安全点会镜像到Pos 0,10.5。" DescriptionOverride="True" LogMessageText="[21:00:02.600] Debug 14:4001F79F:凯夫卡:BAD2:未来终结:4001F79F:凯夫卡:6.100:99.99:99.99:0.00:0.00" LogProcess="True" LogProcessACT="True" />
-                      <Action OrderNumber="6" ActionType="LogMessage" ExecutionDelayExpression="100" Description="功能：模拟第5轮塔共享轮次事件；作用：触发未来脚安全点画图。" DescriptionOverride="True" LogMessageText="[21:00:02.700] Debug yx_灰9塔占位:n:5:dir8:0" LogProcess="True" LogProcessACT="True" />
-                      <Action OrderNumber="7" ActionType="LogMessage" ExecutionDelayExpression="2500" Description="功能：再次模拟BAD3过去终结；作用：验证下一组会覆盖旧图并回到过去脚安全点。" DescriptionOverride="True" LogMessageText="[21:00:05.200] Debug 14:4001F79F:凯夫卡:BAD3:过去终结:4001F79F:凯夫卡:6.100:99.99:99.99:0.00:0.00" LogProcess="True" LogProcessACT="True" />
-                      <Action OrderNumber="8" ActionType="LogMessage" ExecutionDelayExpression="100" Description="功能：模拟第7轮塔共享轮次事件；作用：触发过去脚安全点并验证第3/5/7过滤。" DescriptionOverride="True" LogMessageText="[21:00:05.300] Debug yx_灰9塔占位:n:7:dir8:6" LogProcess="True" LogProcessACT="True" />
+                      <Action OrderNumber="1" ActionType="Variable" Description="功能：Debug前清理本模块普通变量；作用：保证重放从空类型开始。" VariableOp="UnsetRegex" VariableName="^yx_灰9前后未来脚" />
+                      <Action OrderNumber="2" ActionType="NamedCallback" Description="功能：Debug前删除本模块PictoACT标签；作用：便于观察本次重放输出。" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^yx_灰9前后未来脚" />
+                      <Action OrderNumber="3" ActionType="LogMessage" Description="功能：模拟BAD3过去终结；作用：验证过去脚安全点会画在Pos 0,-10.5。" LogMessageText="[21:00:00.000] Debug 14:4001F79F:凯夫卡:BAD3:过去终结:4001F79F:凯夫卡:6.100:99.99:99.99:0.00:0.00" LogProcess="True" LogProcessACT="True" />
+                      <Action OrderNumber="4" ActionType="LogMessage" ExecutionDelayExpression="100" Description="功能：模拟第3轮塔共享轮次事件；作用：触发过去脚安全点画图。" LogMessageText="[21:00:00.100] Debug yx_灰9塔占位:n:3:dir8:2" LogProcess="True" LogProcessACT="True" />
+                      <Action OrderNumber="5" ActionType="LogMessage" ExecutionDelayExpression="2500" Description="功能：模拟BAD2未来终结；作用：验证未来脚安全点会镜像到Pos 0,10.5。" LogMessageText="[21:00:02.600] Debug 14:4001F79F:凯夫卡:BAD2:未来终结:4001F79F:凯夫卡:6.100:99.99:99.99:0.00:0.00" LogProcess="True" LogProcessACT="True" />
+                      <Action OrderNumber="6" ActionType="LogMessage" ExecutionDelayExpression="100" Description="功能：模拟第5轮塔共享轮次事件；作用：触发未来脚安全点画图。" LogMessageText="[21:00:02.700] Debug yx_灰9塔占位:n:5:dir8:0" LogProcess="True" LogProcessACT="True" />
+                      <Action OrderNumber="7" ActionType="LogMessage" ExecutionDelayExpression="2500" Description="功能：再次模拟BAD3过去终结；作用：验证下一组会覆盖旧图并回到过去脚安全点。" LogMessageText="[21:00:05.200] Debug 14:4001F79F:凯夫卡:BAD3:过去终结:4001F79F:凯夫卡:6.100:99.99:99.99:0.00:0.00" LogProcess="True" LogProcessACT="True" />
+                      <Action OrderNumber="8" ActionType="LogMessage" ExecutionDelayExpression="100" Description="功能：模拟第7轮塔共享轮次事件；作用：触发过去脚安全点并验证第3/5/7过滤。" LogMessageText="[21:00:05.300] Debug yx_灰9塔占位:n:7:dir8:6" LogProcess="True" LogProcessACT="True" />
                     </Actions>
                   </Trigger>
                 </Triggers>

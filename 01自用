@@ -369,7 +369,7 @@
               <Action OrderNumber="1" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::1002B745:斯菲因:00:157167:" LogProcess="True" />
               <Action OrderNumber="2" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::102DD31A:阿莉塞:00:142479:" LogProcess="True" />
               <Action OrderNumber="3" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::102E6F9E:可露儿:00:158140:" LogProcess="True" />
-              <Action OrderNumber="4" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::10271A9A:Psycho:00:142479:" LogProcess="True" />
+              <Action OrderNumber="4" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::10271A9A:{_me}:00:142479:" LogProcess="True" />
             </Actions>
           </Trigger>
         </Triggers>
@@ -543,7 +543,7 @@
               <Action OrderNumber="1" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::1002B745:斯菲因:00:157167:" LogProcess="True" />
               <Action OrderNumber="2" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::102DD31A:阿莉塞:00:142479:" LogProcess="True" />
               <Action OrderNumber="3" Enabled="False" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::102E6F9E:可露儿:00:158140:" LogProcess="True" />
-              <Action OrderNumber="4" Enabled="False" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::10271A9A:Psycho:00:142479:" LogProcess="True" />
+              <Action OrderNumber="4" Enabled="False" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[22:27:18.021] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::10271A9A:{_me}:00:142479:" LogProcess="True" />
             </Actions>
           </Trigger>
         </Triggers>

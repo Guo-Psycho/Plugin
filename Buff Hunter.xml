@@ -19,7 +19,7 @@
               <ConditionSingle Enabled="true" ExpressionL="${ID}" ExpressionTypeL="String" ExpressionR="${TargetID}" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
             </Condition>
           </Trigger>
-          <Trigger Enabled="true" Id="ab43baa3-377f-4406-8e83-c03293b1719d" Name="Skill Hunter" RegularExpression="^.{14} (?:\w+ )14:(?&lt;BossID&gt;[^:]*):(?&lt;BossName1&gt;[^:]*):(?&lt;SkillID&gt;[^:]*):(?&lt;SkillName&gt;[^:]*):" Sequential="True" Description="^.{15}\S+ 16:(?&lt;BossID&gt;[^:]*):(?&lt;BossName&gt;[^:]*):(?&lt;skillId&gt;[^:]+):(?&lt;skillName&gt;[^:]+):(?&lt;id&gt;[^:]{8}):(?&lt;Name&gt;(Psycho|Guo Psycho))">
+          <Trigger Enabled="true" Id="ab43baa3-377f-4406-8e83-c03293b1719d" Name="Skill Hunter" RegularExpression="^.{14} (?:\w+ )14:(?&lt;BossID&gt;[^:]*):(?&lt;BossName1&gt;[^:]*):(?&lt;SkillID&gt;[^:]*):(?&lt;SkillName&gt;[^:]*):" Sequential="True" Description="^.{15}\S+ 16:(?&lt;BossID&gt;[^:]*):(?&lt;BossName&gt;[^:]*):(?&lt;skillId&gt;[^:]+):(?&lt;skillName&gt;[^:]+):(?&lt;id&gt;[^:]{8}):(?&lt;Name&gt;({_me}|Guo {_me}))">
             <Actions>
               <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="100" NamedCallbackName="command" NamedCallbackParam="/e Skill Hunter Catch Success  BossName &lt;${BossName1}&gt; Skill Name：&lt;${SkillName}&gt; Skill ID：&lt;${SkillID}&gt;" />
             </Actions>
@@ -79,7 +79,7 @@
           <ConditionSingle Enabled="true" ExpressionL="${var:HunterTime}" ExpressionTypeL="String" ExpressionR="开启" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
         </Condition>
       </Trigger>
-      <Trigger Enabled="true" Id="75e2d4d1-9184-4174-b690-083d549d71f3" Name="Skill Hunter" RegularExpression="^.{14} (?:\w+ )14:(?&lt;BossID&gt;[^:]*):(?&lt;BossName1&gt;[^:]*):(?&lt;SkillID&gt;[^:]*):(?&lt;SkillName&gt;[^:]*):[^:]*:[^:]*:(?&lt;Cast&gt;[^:]*)" Sequential="True" Description="^.{15}\S+ 16:(?&lt;BossID&gt;[^:]*):(?&lt;BossName&gt;[^:]*):(?&lt;skillId&gt;[^:]+):(?&lt;skillName&gt;[^:]+):(?&lt;id&gt;[^:]{8}):(?&lt;Name&gt;(Psycho|Guo Psycho))">
+      <Trigger Enabled="true" Id="75e2d4d1-9184-4174-b690-083d549d71f3" Name="Skill Hunter" RegularExpression="^.{14} (?:\w+ )14:(?&lt;BossID&gt;[^:]*):(?&lt;BossName1&gt;[^:]*):(?&lt;SkillID&gt;[^:]*):(?&lt;SkillName&gt;[^:]*):[^:]*:[^:]*:(?&lt;Cast&gt;[^:]*)" Sequential="True" Description="^.{15}\S+ 16:(?&lt;BossID&gt;[^:]*):(?&lt;BossName&gt;[^:]*):(?&lt;skillId&gt;[^:]+):(?&lt;skillName&gt;[^:]+):(?&lt;id&gt;[^:]{8}):(?&lt;Name&gt;({_me}|Guo {_me}))">
         <Actions>
           <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="100" NamedCallbackName="command" NamedCallbackParam="/e Skill Hunter Catch Success  Boss Name &lt;${BossName1}&gt; Skill Name：&lt;${SkillName}&gt; Skill ID：&lt;${SkillID}&gt; CastTime：&lt;${Cast}&gt;" />
         </Actions>

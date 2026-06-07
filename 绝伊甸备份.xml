@@ -5942,7 +5942,7 @@
                     <Actions>
                       <Action OrderNumber="1" LogMessageText="[22:48:53.474] StatusAdd 1A:99E:Spell-in-Waiting: Dark Blizzard III:21.00:E0000000::101DD068:G'raha Tia:00:225846:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
                       <Action OrderNumber="2" LogMessageText="[22:48:53.474] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:43.00:E0000000::10352F1C:Y'shtola:00:157217:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
-                      <Action OrderNumber="3" LogMessageText="[22:48:53.474] StatusAdd 1A:997:Spell-in-Waiting: Dark Fire III:11.00:E0000000::1029BAFB:Guo Psycho:00:142328:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
+                      <Action OrderNumber="3" LogMessageText="[22:48:53.474] StatusAdd 1A:997:Spell-in-Waiting: Dark Fire III:11.00:E0000000::1029BAFB:Guo {_me}:00:142328:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
                       <Action OrderNumber="4" LogMessageText="[22:48:53.474] StatusAdd 1A:997:Spell-in-Waiting: Dark Fire III:11.00:E0000000::1002B745:Estinien:00:157167:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
                       <Action OrderNumber="5" LogMessageText="[22:48:53.474] StatusAdd 1A:997:Spell-in-Waiting: Dark Fire III:21.00:E0000000::10352F1C:Y'shtola:00:157217:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
                       <Action OrderNumber="6" LogMessageText="[22:48:53.474] StatusAdd 1A:997:Spell-in-Waiting: Dark Fire III:21.00:E0000000::10271A9A:Alphinaud:00:142479:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
@@ -7374,11 +7374,11 @@
                           <Action OrderNumber="3" LogMessageText="[04:53:25.314] StatusAdd 1A:8CD:Refulgent Chain:7.00:E0000000::1023F810:G'raha Tia:00:225889:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.8 * 1000" />
                           <Action OrderNumber="4" LogMessageText="[04:53:25.314] StatusAdd 1A:8CD:Refulgent Chain:7.00:E0000000::10351408:Alphinaud:00:142328:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
                           <Action OrderNumber="5" LogMessageText="[04:53:25.314] StatusAdd 1A:8CD:Refulgent Chain:7.00:E0000000::1024E1E2:Alisaie:00:142328:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
-                          <Action OrderNumber="6" LogMessageText="[04:53:25.314] StatusAdd 1A:8CD:Refulgent Chain:7.00:E0000000::1024375B:Guo Psycho:00:156987:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
+                          <Action OrderNumber="6" LogMessageText="[04:53:25.314] StatusAdd 1A:8CD:Refulgent Chain:7.00:E0000000::1024375B:Guo {_me}:00:156987:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
                           <Action OrderNumber="7" LogMessageText="[04:53:25.314] Tether 23:1023F810:G'raha Tia:10351408:Alphinaud:0000:0000:006E:10351408:000F:0000" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
                           <Action OrderNumber="8" LogMessageText="[04:53:25.314] Tether 23:10351408:Alphinaud:1024E1E2:Alisaie:0000:0000:006E:1024E1E2:000F:0000" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
-                          <Action OrderNumber="9" LogMessageText="[04:53:25.314] Tether 23:1024E1E2:Alisaie:1024375B:Guo Psycho:0000:0000:006E:1024375B:000F:0000" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
-                          <Action OrderNumber="10" LogMessageText="[04:53:25.314] Tether 23:1024375B:Guo Psycho:1023F810:G'raha Tia:0000:0000:006E:1023F810:000F:0000" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
+                          <Action OrderNumber="9" LogMessageText="[04:53:25.314] Tether 23:1024E1E2:Alisaie:1024375B:Guo {_me}:0000:0000:006E:1024375B:000F:0000" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
+                          <Action OrderNumber="10" LogMessageText="[04:53:25.314] Tether 23:1024375B:Guo {_me}:1023F810:G'raha Tia:0000:0000:006E:1023F810:000F:0000" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="闲人换位(测试)" Id="7d86da58-e356-493d-b9a6-cbd93888c854" RegularExpression="狂水准备就绪" PeriodRefire="Deny" RefirePeriodExpression="5000">
@@ -9220,7 +9220,7 @@
                   </Trigger>
                   <Trigger Enabled="false" Name="Debug Log" Id="d35e8194-167b-4cd5-9beb-ee426863b3a7">
                     <Actions>
-                      <Action OrderNumber="1" LogMessageText="[22:34:57.607] StatusAdd 1A:994:回返:7.00:E0000000::103BBAA7:Psycho:00:142328:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
+                      <Action OrderNumber="1" LogMessageText="[22:34:57.607] StatusAdd 1A:994:回返:7.00:E0000000::103BBAA7:{_me}:00:142328:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -10759,7 +10759,7 @@
                   </Trigger>
                   <Trigger Enabled="false" Name="Debug Log" Id="fbd4f0a8-d70b-4baf-87ee-de47614f5d31">
                     <Actions>
-                      <Action OrderNumber="1" LogMessageText="[22:34:57.607] StatusAdd 1A:994:回返:7.00:E0000000::103BBAA7:Psycho:00:142328:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
+                      <Action OrderNumber="1" LogMessageText="[22:34:57.607] StatusAdd 1A:994:回返:7.00:E0000000::103BBAA7:{_me}:00:142328:" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" />
                     </Actions>
                   </Trigger>
                 </Triggers>
